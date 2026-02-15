@@ -9,5 +9,3 @@ export default authMiddleware({
 export const config = {
   matcher: ["/((?!.+\\.[\\w]+$|_next).*)", "/", "/(api|trpc)(.*)"],
 };
-</xai:function_call name="write">
-<parameter name="path">recipe-book/src/app/sign-in/page.tsx
