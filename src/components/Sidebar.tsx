@@ -45,7 +45,7 @@ export default function Sidebar() {
 
       {/* Sidebar */}
       <aside
-        className={`fixed left-0 top-0 h-screen w-64 bg-white dark:bg-zinc-900 border-r border-zinc-200 dark:border-zinc-800 flex flex-col z-50 transition-all duration-200 ${
+        className={`fixed left-0 top-0 h-dvh w-64 bg-white dark:bg-zinc-900 border-r border-zinc-200 dark:border-zinc-800 flex flex-col z-50 transition-all duration-200 overflow-y-auto ${
           open ? "translate-x-0" : "-translate-x-full"
         } md:translate-x-0`}
       >
@@ -113,8 +113,8 @@ export default function Sidebar() {
                 <ThemeToggle className="hidden md:flex" />
               </div>
               <SignOutButton redirectUrl="/">
-                <button className="w-full text-left text-sm text-zinc-500 dark:text-zinc-500 hover:text-rose-500 dark:hover:text-rose-400 px-2 py-2 rounded-xl hover:bg-zinc-100 dark:hover:bg-zinc-800/50 transition-all">
-                  ↩ Sign out
+                <button className="w-full text-center text-sm font-medium text-rose-500 dark:text-rose-400 border border-rose-200 dark:border-rose-500/30 px-3 py-2.5 rounded-xl hover:bg-rose-50 dark:hover:bg-rose-500/10 transition-all active:scale-95">
+                  Sign out
                 </button>
               </SignOutButton>
             </div>
