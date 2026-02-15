@@ -7,6 +7,10 @@
   code, .font-mono { font-family: "JetBrains Mono", "SF Mono", monospace; }
 }
 
+/* Force color-scheme so Safari respects our theme for native elements */
+html.dark { color-scheme: dark; }
+html:not(.dark) { color-scheme: light; }
+
 ::-webkit-scrollbar { width: 6px; }
 ::-webkit-scrollbar-track { background: transparent; }
 ::-webkit-scrollbar-thumb { background: #d4d4d8; border-radius: 3px; }
