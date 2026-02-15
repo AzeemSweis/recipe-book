@@ -53,7 +53,7 @@ export async function POST(req: Request) {
       updatedAt: now,
     };
 
-    saveRecipe(fullRecipe, userId);
+    await saveRecipe(fullRecipe, userId);
     return NextResponse.json({ id: fullRecipe.id, title: fullRecipe.title });
   } catch (e: unknown) {
     return NextResponse.json({ error: e instanceof Error ? e.message : "Import failed" }, { status: 500 });

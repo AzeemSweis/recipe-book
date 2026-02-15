@@ -1,65 +1,40 @@
-import fs from "fs";
-import path from "path";
+import { Redis } from "@upstash/redis";
 import { Recipe } from "./types";
 
-interface Db {
-  recipesByUser: Record<string, Recipe[]>;
+const redis = new Redis({
+  url: process.env.UPSTASH_REDIS_REST_URL!,
+  token: process.env.UPSTASH_REDIS_REST_TOKEN!,
+});
+
+function userKey(userId: string) {
+  return `recipes:${userId}`;
 }
 
-const DATA_DIR = path.join(process.cwd(), "data");
-const RECIPES_FILE = path.join(DATA_DIR, "recipes.json");
-
-function ensureDataDir() {
-  if (!fs.existsSync(DATA_DIR)) fs.mkdirSync(DATA_DIR, { recursive: true });
-  if (!fs.existsSync(RECIPES_FILE)) fs.writeFileSync(RECIPES_FILE, JSON.stringify({ recipesByUser: {} }, null, 2));
+function recipeKey(userId: string, id: string) {
+  return `recipe:${userId}:${id}`;
 }
 
-function getDb(): Db {
-  ensureDataDir();
-  try {
-    let data = JSON.parse(fs.readFileSync(RECIPES_FILE, "utf-8"));
-    if (Array.isArray(data)) {
-      data = { recipesByUser: { legacy: data } };
-      fs.writeFileSync(RECIPES_FILE, JSON.stringify(data, null, 2));
-    }
-    return data as Db;
-  } catch {
-    return { recipesByUser: {} };
-  }
+export async function getRecipes(userId: string): Promise<Recipe[]> {
+  const ids = await redis.smembers(userKey(userId));
+  if (!ids.length) return [];
+  const keys = ids.map((id) => recipeKey(userId, id));
+  const results = await redis.mget<(Recipe | null)[]>(...keys);
+  return results.filter((r): r is Recipe => r !== null);
 }
 
-function saveDb(db: Db) {
-  fs.writeFileSync(RECIPES_FILE, JSON.stringify(db, null, 2));
+export async function getRecipe(id: string, userId: string): Promise<Recipe | null> {
+  return await redis.get<Recipe>(recipeKey(userId, id));
 }
 
-export function getRecipes(userId: string): Recipe[] {
-  const db = getDb();
-  return db.recipesByUser[userId] || [];
-}
-
-export function getRecipe(id: string, userId: string): Recipe | null {
-  return getRecipes(userId).find((r) => r.id === id) || null;
-}
-
-export function saveRecipe(recipe: Recipe, userId: string): Recipe {
-  const db = getDb();
-  if (!db.recipesByUser[userId]) db.recipesByUser[userId] = [];
-  const idx = db.recipesByUser[userId].findIndex((r) => r.id === recipe.id);
+export async function saveRecipe(recipe: Recipe, userId: string): Promise<Recipe> {
   recipe.userId = userId;
   recipe.updatedAt = new Date().toISOString();
-  if (idx >= 0) {
-    db.recipesByUser[userId][idx] = recipe;
-  } else {
-    db.recipesByUser[userId].push(recipe);
-  }
-  saveDb(db);
+  await redis.set(recipeKey(userId, recipe.id), recipe);
+  await redis.sadd(userKey(userId), recipe.id);
   return recipe;
 }
 
-export function deleteRecipe(id: string, userId: string) {
-  const db = getDb();
-  if (db.recipesByUser[userId]) {
-    db.recipesByUser[userId] = db.recipesByUser[userId].filter((r) => r.id !== id);
-    saveDb(db);
-  }
+export async function deleteRecipe(id: string, userId: string): Promise<void> {
+  await redis.del(recipeKey(userId, id));
+  await redis.srem(userKey(userId), id);
 }

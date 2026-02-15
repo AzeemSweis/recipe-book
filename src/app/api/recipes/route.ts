@@ -11,7 +11,7 @@ export async function GET(req: Request) {
   if (!userId) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
-  return NextResponse.json(getRecipes(userId));
+  return NextResponse.json(await getRecipes(userId));
 }
 
 export async function POST(req: Request) {
@@ -44,6 +44,6 @@ export async function POST(req: Request) {
     createdAt: now,
     updatedAt: now,
   };
-  saveRecipe(fullRecipe, userId);
+  await saveRecipe(fullRecipe, userId);
   return NextResponse.json({ id: fullRecipe.id });
 }

@@ -16,7 +16,7 @@ export default async function RecipePage({ params }: Props) {
     notFound();
   }
 
-  const recipe = getRecipe(id, user.id);
+  const recipe = await getRecipe(id, user.id);
 
   if (!recipe) {
     notFound();

@@ -11,7 +11,7 @@ export default async function HomePage() {
   let recipes: Recipe[] = [];
 
   if (user) {
-    recipes = getRecipes(user.id).sort((a, b) => b.createdAt.localeCompare(a.createdAt));
+    recipes = (await getRecipes(user.id)).sort((a, b) => b.createdAt.localeCompare(a.createdAt));
   }
 
   return (
