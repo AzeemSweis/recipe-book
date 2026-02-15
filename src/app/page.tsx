@@ -2,12 +2,13 @@ import { currentUser } from "@clerk/nextjs/server";
 import { getRecipes } from "@/lib/storage";
 import RecipeCard from "@/components/RecipeCard";
 import Link from "next/link";
+import { Recipe } from "@/lib/types";
 
 export const dynamic = "force-dynamic";
 
 export default async function HomePage() {
   const user = await currentUser();
-  let recipes = [];
+  let recipes: Recipe[] = [];
 
   if (user) {
     recipes = getRecipes(user.id).sort((a, b) => b.createdAt.localeCompare(a.createdAt));
