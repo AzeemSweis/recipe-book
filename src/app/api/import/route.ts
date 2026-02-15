@@ -6,7 +6,7 @@ import { Recipe } from "@/lib/types";
 import crypto from "crypto";
 
 export async function POST(req: Request) {
-  const { userId } = auth(req);
+  const { userId } = await auth(req);
   if (!userId) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }

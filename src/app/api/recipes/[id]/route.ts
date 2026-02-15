@@ -5,7 +5,7 @@ import { deleteRecipe, getRecipe } from "@/lib/storage";
 type Props = { params: Promise<{ id: string }> };
 
 export async function DELETE(req: Request, { params }: Props) {
-  const { userId } = auth(req);
+  const { userId } = await auth(req);
   if (!userId) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
