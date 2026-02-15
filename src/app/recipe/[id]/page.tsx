@@ -1,6 +1,8 @@
+import { currentUser } from "@clerk/nextjs/server";
 import { getRecipe } from "@/lib/storage";
 import Link from "next/link";
 import DeleteButton from "./DeleteButton";
+import { notFound } from "next/navigation";
 
 export const dynamic = "force-dynamic";
 
@@ -8,15 +10,16 @@ type Props = { params: Promise<{ id: string }> };
 
 export default async function RecipePage({ params }: Props) {
   const { id } = await params;
-  const recipe = getRecipe(id);
+  const user = await currentUser();
+
+  if (!user) {
+    notFound();
+  }
+
+  const recipe = getRecipe(id, user.id);
 
   if (!recipe) {
-    return (
-      <div className="text-center py-20">
-        <p className="text-zinc-400">Recipe not found.</p>
-        <Link href="/" className="text-indigo-400 text-sm mt-2 inline-block">← Back to recipes</Link>
-      </div>
-    );
+    notFound();
   }
 
   return (
