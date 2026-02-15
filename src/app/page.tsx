@@ -16,9 +16,9 @@ export default async function HomePage() {
 
   return (
     <div>
-      <div className="flex items-center justify-between mb-8">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8">
         <div>
-          <h1 className="text-3xl font-bold">{user ? "Your Recipes" : "Recipe Book"}</h1>
+          <h1 className="text-2xl sm:text-3xl font-bold">{user ? "Your Recipes" : "Recipe Book"}</h1>
           <p className="text-zinc-400 mt-1">{user ? `${recipes.length} recipe${recipes.length !== 1 ? "s" : ""} saved` : "Sign in to get started"}</p>
         </div>
         {user ? (
