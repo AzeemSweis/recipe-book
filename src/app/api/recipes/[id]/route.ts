@@ -1,10 +1,19 @@
 import { NextResponse } from "next/server";
-import { deleteRecipe } from "@/lib/storage";
+import { auth } from "@clerk/nextjs/server";
+import { deleteRecipe, getRecipe } from "@/lib/storage";
 
 type Props = { params: Promise<{ id: string }> };
 
-export async function DELETE(_req: Request, { params }: Props) {
+export async function DELETE(req: Request, { params }: Props) {
+  const { userId } = auth(req);
+  if (!userId) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
   const { id } = await params;
-  deleteRecipe(id);
+  const recipe = getRecipe(id, userId);
+  if (!recipe) {
+    return NextResponse.json({ error: "Not found or not yours" }, { status: 403 });
+  }
+  deleteRecipe(id, userId);
   return NextResponse.json({ ok: true });
 }

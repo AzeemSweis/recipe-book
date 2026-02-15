@@ -1,19 +1,27 @@
 import { NextResponse } from "next/server";
+import { auth } from "@clerk/nextjs/server";
 import { getRecipes, saveRecipe } from "@/lib/storage";
 import { Recipe } from "@/lib/types";
 import crypto from "crypto";
 
 export const dynamic = "force-dynamic";
 
-export async function GET() {
-  return NextResponse.json(getRecipes());
+export async function GET(req: Request) {
+  const { userId } = auth(req);
+  if (!userId) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
+  return NextResponse.json(getRecipes(userId));
 }
 
 export async function POST(req: Request) {
+  const { userId } = auth(req);
+  if (!userId) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
   const data = await req.json();
   const now = new Date().toISOString();
-  const recipe: Recipe = {
-    id: crypto.randomUUID(),
+  const recipe: Omit<Recipe, "id" | "userId" | "createdAt" | "updatedAt"> = {
     title: data.title || "Untitled",
     description: data.description,
     servings: data.servings,
@@ -27,9 +35,15 @@ export async function POST(req: Request) {
     instructions: data.instructions || [],
     notes: data.notes,
     image: data.image,
+    sourceUrl: data.sourceUrl,
+  };
+  const fullRecipe: Recipe = {
+    ...recipe,
+    id: crypto.randomUUID(),
+    userId,
     createdAt: now,
     updatedAt: now,
   };
-  saveRecipe(recipe);
-  return NextResponse.json({ id: recipe.id });
+  saveRecipe(fullRecipe, userId);
+  return NextResponse.json({ id: fullRecipe.id });
 }

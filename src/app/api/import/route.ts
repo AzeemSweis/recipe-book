@@ -1,10 +1,16 @@
 import { NextResponse } from "next/server";
+import { auth } from "@clerk/nextjs/server";
 import { parseRecipeFromHtml } from "@/lib/parser";
 import { saveRecipe } from "@/lib/storage";
 import { Recipe } from "@/lib/types";
 import crypto from "crypto";
 
 export async function POST(req: Request) {
+  const { userId } = auth(req);
+  if (!userId) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
+
   try {
     const { url } = await req.json();
     if (!url) return NextResponse.json({ error: "URL required" }, { status: 400 });
@@ -22,8 +28,7 @@ export async function POST(req: Request) {
     const parsed = parseRecipeFromHtml(html, url);
     const now = new Date().toISOString();
 
-    const recipe: Recipe = {
-      id: crypto.randomUUID(),
+    const recipe: Omit<Recipe, "id" | "userId" | "createdAt" | "updatedAt"> = {
       title: parsed.title || "Untitled Recipe",
       sourceUrl: url,
       description: parsed.description,
@@ -38,12 +43,18 @@ export async function POST(req: Request) {
       instructions: parsed.instructions || [],
       notes: parsed.notes,
       image: parsed.image,
+    };
+
+    const fullRecipe: Recipe = {
+      ...recipe,
+      id: crypto.randomUUID(),
+      userId,
       createdAt: now,
       updatedAt: now,
     };
 
-    saveRecipe(recipe);
-    return NextResponse.json({ id: recipe.id, title: recipe.title });
+    saveRecipe(fullRecipe, userId);
+    return NextResponse.json({ id: fullRecipe.id, title: fullRecipe.title });
   } catch (e: unknown) {
     return NextResponse.json({ error: e instanceof Error ? e.message : "Import failed" }, { status: 500 });
   }
