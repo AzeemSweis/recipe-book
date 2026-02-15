@@ -12,7 +12,7 @@ export default function DeleteButton({ id }: { id: string }) {
   };
 
   return (
-    <button onClick={handleDelete} className="text-sm text-zinc-600 hover:text-red-400 transition-colors">
+    <button onClick={handleDelete} className="text-sm text-zinc-400 hover:text-red-500 dark:text-zinc-600 dark:hover:text-red-400 transition-colors">
       Delete recipe
     </button>
   );
