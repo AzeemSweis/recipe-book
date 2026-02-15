@@ -1,5 +1,23 @@
 import { Recipe, Ingredient } from "./types";
 
+function decodeEntities(s: string): string {
+  return s
+    .replace(/&nbsp;/gi, " ")
+    .replace(/&amp;/gi, "&")
+    .replace(/&lt;/gi, "<")
+    .replace(/&gt;/gi, ">")
+    .replace(/&quot;/gi, '"')
+    .replace(/&#39;/gi, "'")
+    .replace(/&#x27;/gi, "'")
+    .replace(/&#(\d+);/g, (_, n) => String.fromCharCode(Number(n)))
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+function cleanHtml(s: string): string {
+  return decodeEntities(s.replace(/<[^>]+>/g, ""));
+}
+
 // Extract JSON-LD structured data (schema.org Recipe)
 function extractJsonLd(html: string): Record<string, unknown> | null {
   const scripts = html.match(/<script[^>]*type=["']application\/ld\+json["'][^>]*>([\s\S]*?)<\/script>/gi);
@@ -32,7 +50,7 @@ function parseDuration(iso: string): string {
 }
 
 function parseIngredientStr(s: string): Ingredient {
-  s = s.replace(/<[^>]+>/g, "").trim();
+  s = cleanHtml(s);
   // Try to match "amount unit name"
   const match = s.match(/^([\d\s\/¼½¾⅓⅔⅛.,-]+)\s*(cups?|tbsp|tsp|tablespoons?|teaspoons?|oz|ounces?|lbs?|pounds?|g|grams?|kg|ml|liters?|cloves?|cans?|pieces?|slices?|pinch|dash|bunch|stalks?|heads?|large|medium|small|whole)?\s*(.*)$/i);
   if (match) {
@@ -44,15 +62,15 @@ function parseIngredientStr(s: string): Ingredient {
 function extractInstructions(data: Record<string, unknown>): string[] {
   const raw = data.recipeInstructions;
   if (!raw) return [];
-  if (typeof raw === "string") return raw.split(/\n+/).filter(Boolean).map((s: string) => s.replace(/<[^>]+>/g, "").trim());
+  if (typeof raw === "string") return raw.split(/\n+/).filter(Boolean).map((s: string) => cleanHtml(s));
   if (Array.isArray(raw)) {
     return raw.flatMap((item: unknown) => {
-      if (typeof item === "string") return [item.replace(/<[^>]+>/g, "").trim()];
+      if (typeof item === "string") return [cleanHtml(item)];
       if (typeof item === "object" && item !== null) {
         const obj = item as Record<string, unknown>;
-        if (obj["@type"] === "HowToStep") return [String(obj.text || "").replace(/<[^>]+>/g, "").trim()];
+        if (obj["@type"] === "HowToStep") return [cleanHtml(String(obj.text || ""))];
         if (obj["@type"] === "HowToSection" && Array.isArray(obj.itemListElement)) {
-          return (obj.itemListElement as Record<string, unknown>[]).map((s) => String(s.text || "").replace(/<[^>]+>/g, "").trim());
+          return (obj.itemListElement as Record<string, unknown>[]).map((s) => cleanHtml(String(s.text || "")));
         }
       }
       return [];
@@ -81,7 +99,7 @@ export function parseRecipeFromHtml(html: string, sourceUrl: string): Partial<Re
     return {
       title: String(jsonLd.name || "Untitled Recipe"),
       sourceUrl,
-      description: String(jsonLd.description || "").replace(/<[^>]+>/g, "").trim() || undefined,
+      description: cleanHtml(String(jsonLd.description || "")) || undefined,
       servings: jsonLd.recipeYield ? String(Array.isArray(jsonLd.recipeYield) ? jsonLd.recipeYield[0] : jsonLd.recipeYield) : undefined,
       prepTime: jsonLd.prepTime ? parseDuration(String(jsonLd.prepTime)) : undefined,
       cookTime: jsonLd.cookTime ? parseDuration(String(jsonLd.cookTime)) : undefined,
@@ -98,7 +116,7 @@ export function parseRecipeFromHtml(html: string, sourceUrl: string): Partial<Re
   // Fallback: try to extract title from HTML
   const titleMatch = html.match(/<title[^>]*>(.*?)<\/title>/i);
   return {
-    title: titleMatch ? titleMatch[1].replace(/<[^>]+>/g, "").trim() : "Untitled Recipe",
+    title: titleMatch ? cleanHtml(titleMatch[1]) : "Untitled Recipe",
     sourceUrl,
     ingredients: [],
     instructions: [],
