@@ -1,0 +1,84 @@
+[
+  {
+    "id": "7af0ca79-c12d-408f-84ca-46d0e1dd6877",
+    "title": "Easy Chicken Fajitas",
+    "sourceUrl": "https://www.spendwithpennies.com/easy-chicken-fajitas/",
+    "description": "These Easy Chicken Fajitas are the perfect weeknight meal because they’re on the table in about 20 minutes start to finish!",
+    "servings": "4",
+    "prepTime": "10m",
+    "cookTime": "15m",
+    "totalTime": "30m",
+    "cuisine": "Mexican",
+    "category": "Dinner",
+    "tags": [
+      "chicken fajitas"
+    ],
+    "ingredients": [
+      {
+        "amount": "3",
+        "unit": "",
+        "name": "boneless skinless chicken breasts (approximately 1 pound)"
+      },
+      {
+        "amount": "1",
+        "unit": "medium",
+        "name": "onion"
+      },
+      {
+        "amount": "1",
+        "unit": "",
+        "name": "lime"
+      },
+      {
+        "amount": "3",
+        "unit": "",
+        "name": "bell peppers (red, yellow, green or orange)"
+      },
+      {
+        "amount": "3",
+        "unit": "tablespoons",
+        "name": "olive oil (divided)"
+      },
+      {
+        "amount": "1",
+        "unit": "teaspoon",
+        "name": "chili powder"
+      },
+      {
+        "amount": "¾",
+        "unit": "teaspoon",
+        "name": "salt (divided, more to taste)"
+      },
+      {
+        "amount": "½",
+        "unit": "teaspoon",
+        "name": "smoked paprika"
+      },
+      {
+        "amount": "½",
+        "unit": "teaspoon",
+        "name": "onion powder"
+      },
+      {
+        "amount": "½",
+        "unit": "teaspoon",
+        "name": "black pepper"
+      },
+      {
+        "amount": "½",
+        "unit": "teaspoon",
+        "name": "cumin (optional)"
+      }
+    ],
+    "instructions": [
+      "Cut onion into slivers &amp; slice peppers.",
+      "In a separate bowl, combine 1 tablespoon olive oil, juice of ½ lime, chili powder, paprika, onion powder, pepper, cumin and ½ teaspoon salt. Cut chicken into strips and toss with the spice mixture.",
+      "Preheat 1 tablespoon olive oil over medium high. Add ½ of the chicken and cook until just cooked, about 3 to 5 minutes. Remove from the pan and set aside. Repeat with remaining chicken.",
+      "Set chicken aside and add 1 tablespoon of oil to the pan. Drain onions well (if soaking per note below) and cook 2 minutes. Add in sliced peppers and season with remaining ¼ teaspoon of salt. Toss and cook for an additional 2 minutes or just until hot. Add chicken back to the pan and stir to combine.",
+      "Squeeze additional lime overtop and serve over tortillas."
+    ],
+    "image": "https://www.spendwithpennies.com/wp-content/uploads/2018/07/Easy-Chicken-Fajitas-5-SpendWithPennies.jpg",
+    "createdAt": "2026-02-13T22:38:31.045Z",
+    "updatedAt": "2026-02-13T22:38:31.045Z"
+  }
+]
