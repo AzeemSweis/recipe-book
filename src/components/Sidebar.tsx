@@ -20,16 +20,19 @@ export default function Sidebar() {
 
   return (
     <>
-      {/* Mobile hamburger */}
-      <button
-        onClick={() => setOpen(true)}
-        className="fixed top-4 left-4 z-50 md:hidden bg-zinc-900 border border-zinc-800 rounded-lg p-2 text-zinc-300"
-        aria-label="Open menu"
-      >
-        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-        </svg>
-      </button>
+      {/* Mobile top bar */}
+      <div className="fixed top-0 left-0 right-0 z-30 md:hidden bg-zinc-900/95 backdrop-blur-sm border-b border-zinc-800 flex items-center h-14 px-4">
+        <button
+          onClick={() => setOpen(true)}
+          className="text-zinc-300 p-1 -ml-1"
+          aria-label="Open menu"
+        >
+          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+          </svg>
+        </button>
+        <span className="ml-3 text-sm font-semibold text-zinc-100">🍳 Recipe Book</span>
+      </div>
 
       {/* Overlay */}
       {open && (
@@ -102,9 +105,9 @@ export default function Sidebar() {
                   </p>
                 </div>
               </div>
-              <SignOutButton>
-                <button className="mt-2 w-full text-left text-xs text-zinc-500 hover:text-zinc-300 px-2 py-1 transition-colors">
-                  Sign out
+              <SignOutButton redirectUrl="/">
+                <button className="mt-3 w-full text-left text-xs text-red-400/70 hover:text-red-400 px-2 py-1.5 rounded hover:bg-zinc-800/50 transition-colors">
+                  ↩ Sign out
                 </button>
               </SignOutButton>
             </div>
