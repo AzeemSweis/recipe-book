@@ -60,13 +60,16 @@ export default async function RecipePage({ params }: Props) {
           {recipe.ingredients.length === 0 ? (
             <p className="text-zinc-500 text-sm">No ingredients parsed.</p>
           ) : (
-            <ul className="space-y-3">
+            <ul className="divide-y divide-zinc-100 dark:divide-zinc-800">
               {recipe.ingredients.map((ing, i) => (
-                <li key={i} className="text-sm leading-relaxed">
-                  {ing.amount && <span className="text-rose-500 dark:text-rose-400 font-semibold">{ing.amount}</span>}
-                  {ing.unit && <span className="text-zinc-500 ml-1">{ing.unit}</span>}
-                  <span className="text-zinc-800 dark:text-zinc-200 ml-1">{ing.name}</span>
-                  {ing.notes && <span className="text-zinc-400 dark:text-zinc-600 text-xs ml-1">({ing.notes})</span>}
+                <li key={i} className="flex items-baseline py-2.5 text-sm gap-3">
+                  <span className="shrink-0 w-24 text-right text-rose-500 dark:text-rose-400 font-semibold">
+                    {[ing.amount, ing.unit].filter(Boolean).join(" ") || "•"}
+                  </span>
+                  <span className="text-zinc-800 dark:text-zinc-200">
+                    {ing.name}
+                    {ing.notes && <span className="text-zinc-400 dark:text-zinc-600 text-xs ml-1">({ing.notes})</span>}
+                  </span>
                 </li>
               ))}
             </ul>
