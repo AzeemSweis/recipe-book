@@ -1,8 +1,8 @@
 import { currentUser } from "@clerk/nextjs/server";
 import { getRecipes } from "@/lib/storage";
-import RecipeCard from "@/components/RecipeCard";
 import Link from "next/link";
 import { Recipe } from "@/lib/types";
+import RecipeGrid from "@/components/RecipeGrid";
 
 export const dynamic = "force-dynamic";
 
@@ -32,27 +32,20 @@ export default async function HomePage() {
         )}
       </div>
 
-      {recipes.length === 0 ? (
+      {!user ? (
         <div className="text-center py-24">
           <p className="text-5xl mb-6">🍳</p>
-          {user ? (
-            <>
-              <p className="text-zinc-500 dark:text-zinc-400 text-lg mb-2">No recipes yet</p>
-              <p className="text-zinc-400 dark:text-zinc-600 text-sm">Import a recipe URL or add one manually to get started.</p>
-            </>
-          ) : (
-            <>
-              <p className="text-zinc-500 dark:text-zinc-400 text-lg mb-2">No recipes to show</p>
-              <p className="text-zinc-400 dark:text-zinc-600 text-sm">Sign in to parse and track your favorites.</p>
-            </>
-          )}
+          <p className="text-zinc-500 dark:text-zinc-400 text-lg mb-2">No recipes to show</p>
+          <p className="text-zinc-400 dark:text-zinc-600 text-sm">Sign in to parse and track your favorites.</p>
+        </div>
+      ) : recipes.length === 0 ? (
+        <div className="text-center py-24">
+          <p className="text-5xl mb-6">🍳</p>
+          <p className="text-zinc-500 dark:text-zinc-400 text-lg mb-2">No recipes yet</p>
+          <p className="text-zinc-400 dark:text-zinc-600 text-sm">Import a recipe URL or add one manually to get started.</p>
         </div>
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {recipes.map((r) => (
-            <RecipeCard key={r.id} recipe={r} />
-          ))}
-        </div>
+        <RecipeGrid recipes={recipes} />
       )}
     </div>
   );
