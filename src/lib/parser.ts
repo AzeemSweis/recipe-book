@@ -59,6 +59,15 @@ function parseIngredientStr(s: string): Ingredient {
   return { amount: "", unit: "", name: s };
 }
 
+/** Re-parse a stored ingredient to fix bad legacy parses (e.g. "2 g" + "arlic cloves") */
+export function reparseIngredient(ing: Ingredient): Ingredient {
+  const raw = [ing.amount, ing.unit, ing.name, ing.notes ? `(${ing.notes})` : ""]
+    .filter(Boolean)
+    .join(" ")
+    .trim();
+  return parseIngredientStr(raw);
+}
+
 function extractInstructions(data: Record<string, unknown>): string[] {
   const raw = data.recipeInstructions;
   if (!raw) return [];

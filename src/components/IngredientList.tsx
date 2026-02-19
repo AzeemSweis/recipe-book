@@ -28,36 +28,30 @@ export default function IngredientList({ ingredients }: Props) {
     <ul className="divide-y divide-zinc-100 dark:divide-zinc-800">
       {ingredients.map((ing, i) => {
         const isChecked = checked.has(i)
-        const measure = [ing.amount, ing.unit].filter(Boolean).join(' ') || '•'
+        const measure = [ing.amount, ing.unit].filter(Boolean).join(' ')
         return (
-          <li 
-            key={i} 
-            className={`flex items-start py-2.5 text-sm gap-3 ${
-              isChecked 
-                ? 'opacity-60' 
-                : ''
-            }`}
-          >
-            <label className="flex items-center gap-2 cursor-pointer min-w-[2rem] -mt-0.5">
+          <li key={i}>
+            <label
+              className={`flex items-baseline py-2.5 text-sm gap-3 cursor-pointer select-none ${
+                isChecked ? 'opacity-60' : ''
+              }`}
+            >
               <input
                 type="checkbox"
-                id={`ing-${i}`}
                 checked={isChecked}
                 onChange={() => toggle(i)}
-                className="w-4 h-4 text-rose-500 rounded border-zinc-300 focus:ring-rose-500 bg-white shadow-sm dark:bg-zinc-800 dark:border-zinc-600 dark:checked:bg-rose-500 dark:checked:border-rose-500 dark:focus:ring-offset-zinc-900"
+                className="w-4 h-4 mt-0.5 shrink-0 text-rose-500 rounded border-zinc-300 focus:ring-rose-500 bg-white shadow-sm dark:bg-zinc-800 dark:border-zinc-600 dark:checked:bg-rose-500 dark:checked:border-rose-500 dark:focus:ring-offset-zinc-900 self-center"
               />
-            </label>
-            <div className="flex-1 min-w-0">
-              <div className={`text-right text-rose-500 dark:text-rose-400 font-semibold text-sm mb-0.5 ${isChecked ? 'line-through decoration-rose-400/50 decoration-2' : ''}`}>
-                {measure}
-              </div>
-              <div className={`text-zinc-800 dark:text-zinc-200 ${isChecked ? 'line-through decoration-zinc-400/50 decoration-2' : ''}`}>
+              <span className={`shrink-0 w-24 text-right text-rose-500 dark:text-rose-400 font-semibold ${isChecked ? 'line-through decoration-rose-400/50' : ''}`}>
+                {measure || '•'}
+              </span>
+              <span className={`text-zinc-800 dark:text-zinc-200 ${isChecked ? 'line-through decoration-zinc-400/50' : ''}`}>
                 {ing.name}
                 {ing.notes && (
                   <span className="text-zinc-400 dark:text-zinc-600 text-xs ml-1">({ing.notes})</span>
                 )}
-              </div>
-            </div>
+              </span>
+            </label>
           </li>
         )
       })}

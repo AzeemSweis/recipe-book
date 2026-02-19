@@ -1,5 +1,6 @@
 import { Redis } from "@upstash/redis";
-import { Recipe } from "./types";
+import { Recipe, Ingredient } from "./types";
+import { reparseIngredient } from "./parser";
 
 const redis = new Redis({
   url: process.env.UPSTASH_REDIS_REST_URL!,
@@ -14,16 +15,22 @@ function recipeKey(userId: string, id: string) {
   return `recipe:${userId}:${id}`;
 }
 
+function fixIngredients(recipe: Recipe): Recipe {
+  recipe.ingredients = recipe.ingredients.map(reparseIngredient);
+  return recipe;
+}
+
 export async function getRecipes(userId: string): Promise<Recipe[]> {
   const ids = await redis.smembers(userKey(userId));
   if (!ids.length) return [];
   const keys = ids.map((id) => recipeKey(userId, id));
   const results = await redis.mget<(Recipe | null)[]>(...keys);
-  return results.filter((r): r is Recipe => r !== null);
+  return results.filter((r): r is Recipe => r !== null).map(fixIngredients);
 }
 
 export async function getRecipe(id: string, userId: string): Promise<Recipe | null> {
-  return await redis.get<Recipe>(recipeKey(userId, id));
+  const recipe = await redis.get<Recipe>(recipeKey(userId, id));
+  return recipe ? fixIngredients(recipe) : null;
 }
 
 export async function saveRecipe(recipe: Recipe, userId: string): Promise<Recipe> {
