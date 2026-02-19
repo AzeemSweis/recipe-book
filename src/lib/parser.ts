@@ -52,7 +52,7 @@ function parseDuration(iso: string): string {
 function parseIngredientStr(s: string): Ingredient {
   s = cleanHtml(s);
   // Try to match "amount unit name"
-  const match = s.match(/^([\d\s\/¼½¾⅓⅔⅛.,-]+)\s*(cups?|tbsp|tsp|tablespoons?|teaspoons?|oz|ounces?|lbs?|pounds?|g|grams?|kg|ml|liters?|cloves?|cans?|pieces?|slices?|pinch|dash|bunch|stalks?|heads?|large|medium|small|whole)?\s*(.*)$/i);
+  const match = s.match(/^([\d\s\/¼½¾⅓⅔⅛.,-]+)\s*(?:(cups?|tbsp|tsp|tablespoons?|teaspoons?|oz|ounces?|lbs?|pounds?|g|grams?|kg|ml|liters?|cloves?|cans?|pieces?|slices?|pinch|dash|bunch|stalks?|heads?|large|medium|small|whole)\b\s+)?(.*)$/i);
   if (match) {
     return { amount: match[1].trim(), unit: (match[2] || "").trim(), name: match[3].trim() };
   }

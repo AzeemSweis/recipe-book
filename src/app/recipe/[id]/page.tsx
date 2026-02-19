@@ -2,6 +2,7 @@ import { currentUser } from "@clerk/nextjs/server";
 import { getRecipe } from "@/lib/storage";
 import Link from "next/link";
 import DeleteButton from "./DeleteButton";
+import IngredientList from "@/components/IngredientList";
 import { notFound } from "next/navigation";
 
 export const dynamic = "force-dynamic";
@@ -57,23 +58,7 @@ export default async function RecipePage({ params }: Props) {
       <section className="mb-10">
         <h2 className="text-xl font-semibold mb-4">🥘 Ingredients</h2>
         <div className="bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-2xl p-6">
-          {recipe.ingredients.length === 0 ? (
-            <p className="text-zinc-500 text-sm">No ingredients parsed.</p>
-          ) : (
-            <ul className="divide-y divide-zinc-100 dark:divide-zinc-800">
-              {recipe.ingredients.map((ing, i) => (
-                <li key={i} className="flex items-baseline py-2.5 text-sm gap-3">
-                  <span className="shrink-0 w-24 text-right text-rose-500 dark:text-rose-400 font-semibold">
-                    {[ing.amount, ing.unit].filter(Boolean).join(" ") || "•"}
-                  </span>
-                  <span className="text-zinc-800 dark:text-zinc-200">
-                    {ing.name}
-                    {ing.notes && <span className="text-zinc-400 dark:text-zinc-600 text-xs ml-1">({ing.notes})</span>}
-                  </span>
-                </li>
-              ))}
-            </ul>
-          )}
+          <IngredientList ingredients={recipe.ingredients} />
         </div>
       </section>
 
