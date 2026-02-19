@@ -59,13 +59,19 @@ function parseIngredientStr(s: string): Ingredient {
   return { amount: "", unit: "", name: s };
 }
 
-/** Re-parse a stored ingredient to fix bad legacy parses (e.g. "2 g" + "arlic cloves") */
+/** Fix stored ingredients with bad legacy parses (e.g. unit="g" name="arlic cloves") */
 export function reparseIngredient(ing: Ingredient): Ingredient {
-  const raw = [ing.amount, ing.unit, ing.name, ing.notes ? `(${ing.notes})` : ""]
-    .filter(Boolean)
-    .join(" ")
-    .trim();
-  return parseIngredientStr(raw);
+  // Detect corruption: single-letter unit where unit+name forms a word (e.g. "g"+"arlic" = "garlic")
+  if (ing.unit && ing.unit.length === 1 && ing.name && /^[a-z]/.test(ing.name)) {
+    const merged = ing.unit + ing.name.split(/\s/)[0]; // e.g. "g" + "arlic" = "garlic"
+    // If merging produces a longer word (not just the unit letter), it was likely a bad split
+    if (merged.length > 2) {
+      const fixedName = ing.unit + ing.name;
+      const raw = [ing.amount, fixedName, ing.notes ? `(${ing.notes})` : ""].filter(Boolean).join(" ").trim();
+      return parseIngredientStr(raw);
+    }
+  }
+  return ing;
 }
 
 function extractInstructions(data: Record<string, unknown>): string[] {
