@@ -22,6 +22,7 @@ export interface Recipe {
   instructions: string[];
   notes?: string;
   image?: string;
+  timesMade: number;
   createdAt: string;
   updatedAt: string;
 }

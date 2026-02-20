@@ -21,7 +21,7 @@ export async function POST(req: Request) {
   }
   const data = await req.json();
   const now = new Date().toISOString();
-  const recipe: Omit<Recipe, "id" | "userId" | "createdAt" | "updatedAt"> = {
+  const recipe: Omit<Recipe, "id" | "userId" | "createdAt" | "updatedAt" | "timesMade"> = {
     title: data.title || "Untitled",
     description: data.description,
     servings: data.servings,
@@ -39,6 +39,7 @@ export async function POST(req: Request) {
   };
   const fullRecipe: Recipe = {
     ...recipe,
+    timesMade: 0,
     id: crypto.randomUUID(),
     userId,
     createdAt: now,

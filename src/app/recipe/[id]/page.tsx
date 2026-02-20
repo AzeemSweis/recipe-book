@@ -2,6 +2,8 @@ import { currentUser } from "@clerk/nextjs/server";
 import { getRecipe } from "@/lib/storage";
 import Link from "next/link";
 import DeleteButton from "./DeleteButton";
+import CookCounter from "./CookCounter";
+import EditButton from "./EditButton";
 import IngredientList from "@/components/IngredientList";
 import { notFound } from "next/navigation";
 
@@ -45,6 +47,8 @@ export default async function RecipePage({ params }: Props) {
         {recipe.cuisine && <div className="bg-zinc-100 dark:bg-zinc-800/60 px-3 py-1.5 rounded-xl"><span className="text-zinc-400 dark:text-zinc-600">Cuisine:</span> {recipe.cuisine}</div>}
         {recipe.category && <div className="bg-zinc-100 dark:bg-zinc-800/60 px-3 py-1.5 rounded-xl"><span className="text-zinc-400 dark:text-zinc-600">Category:</span> {recipe.category}</div>}
       </div>
+
+      <CookCounter id={recipe.id} timesMade={recipe.timesMade} />
 
       {recipe.tags.length > 0 && (
         <div className="flex flex-wrap gap-2 mb-8">
@@ -96,6 +100,7 @@ export default async function RecipePage({ params }: Props) {
             View original →
           </a>
         )}
+        <EditButton id={recipe.id} />
         <DeleteButton id={recipe.id} />
       </div>
     </div>

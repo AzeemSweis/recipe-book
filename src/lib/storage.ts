@@ -25,12 +25,20 @@ export async function getRecipes(userId: string): Promise<Recipe[]> {
   if (!ids.length) return [];
   const keys = ids.map((id) => recipeKey(userId, id));
   const results = await redis.mget<(Recipe | null)[]>(...keys);
-  return results.filter((r): r is Recipe => r !== null).map(fixIngredients);
+  return results.filter((r): r is Recipe => r !== null).map((recipe) => {
+    fixIngredients(recipe);
+    recipe.timesMade ??= 0;
+    return recipe;
+  });
 }
 
 export async function getRecipe(id: string, userId: string): Promise<Recipe | null> {
-  const recipe = await redis.get<Recipe>(recipeKey(userId, id));
-  return recipe ? fixIngredients(recipe) : null;
+  let recipe = await redis.get<Recipe>(recipeKey(userId, id));
+  if (recipe) {
+    fixIngredients(recipe);
+    recipe.timesMade ??= 0;
+  }
+  return recipe;
 }
 
 export async function saveRecipe(recipe: Recipe, userId: string): Promise<Recipe> {
