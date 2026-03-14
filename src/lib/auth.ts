@@ -2,8 +2,12 @@ import { auth as clerkAuth } from "@clerk/nextjs/server";
 import { getAuth } from "firebase-admin/auth";
 import { initializeApp, getApps, cert } from "firebase-admin/app";
 
-// Initialize Firebase Admin SDK (only once)
-if (!getApps().length && process.env.FIREBASE_PROJECT_ID) {
+function ensureFirebaseAdmin() {
+  if (getApps().length) return true;
+  if (!process.env.FIREBASE_PROJECT_ID) {
+    console.warn("[auth] FIREBASE_PROJECT_ID not set — Firebase auth disabled");
+    return false;
+  }
   try {
     initializeApp({
       credential: cert({
@@ -13,11 +17,11 @@ if (!getApps().length && process.env.FIREBASE_PROJECT_ID) {
       }),
     });
     console.log("[auth] Firebase Admin initialized for project:", process.env.FIREBASE_PROJECT_ID);
+    return true;
   } catch (e) {
     console.error("[auth] Firebase Admin init failed:", e);
+    return false;
   }
-} else if (!process.env.FIREBASE_PROJECT_ID) {
-  console.warn("[auth] FIREBASE_PROJECT_ID not set — Firebase auth disabled");
 }
 
 export async function getAuthenticatedUserId(req: Request): Promise<string | null> {
@@ -32,6 +36,7 @@ export async function getAuthenticatedUserId(req: Request): Promise<string | nul
   // Try Firebase JWT (iOS app)
   const authHeader = req.headers.get("authorization");
   if (authHeader?.startsWith("Bearer ")) {
+    if (!ensureFirebaseAdmin()) return null;
     try {
       const token = authHeader.slice(7);
       const decoded = await getAuth().verifyIdToken(token);
