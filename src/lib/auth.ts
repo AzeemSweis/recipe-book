@@ -4,13 +4,20 @@ import { initializeApp, getApps, cert } from "firebase-admin/app";
 
 // Initialize Firebase Admin SDK (only once)
 if (!getApps().length && process.env.FIREBASE_PROJECT_ID) {
-  initializeApp({
-    credential: cert({
-      projectId: process.env.FIREBASE_PROJECT_ID,
-      clientEmail: process.env.FIREBASE_CLIENT_EMAIL,
-      privateKey: process.env.FIREBASE_PRIVATE_KEY?.replace(/\\n/g, "\n"),
-    }),
-  });
+  try {
+    initializeApp({
+      credential: cert({
+        projectId: process.env.FIREBASE_PROJECT_ID,
+        clientEmail: process.env.FIREBASE_CLIENT_EMAIL,
+        privateKey: process.env.FIREBASE_PRIVATE_KEY?.replace(/\\n/g, "\n"),
+      }),
+    });
+    console.log("[auth] Firebase Admin initialized for project:", process.env.FIREBASE_PROJECT_ID);
+  } catch (e) {
+    console.error("[auth] Firebase Admin init failed:", e);
+  }
+} else if (!process.env.FIREBASE_PROJECT_ID) {
+  console.warn("[auth] FIREBASE_PROJECT_ID not set — Firebase auth disabled");
 }
 
 export async function getAuthenticatedUserId(req: Request): Promise<string | null> {
@@ -29,7 +36,8 @@ export async function getAuthenticatedUserId(req: Request): Promise<string | nul
       const token = authHeader.slice(7);
       const decoded = await getAuth().verifyIdToken(token);
       return decoded.uid;
-    } catch {
+    } catch (e) {
+      console.error("[auth] Firebase token verification failed:", e);
       return null;
     }
   }
