@@ -40,7 +40,7 @@ export async function POST(req: Request) {
   const fullRecipe: Recipe = {
     ...recipe,
     timesMade: 0,
-    id: crypto.randomUUID(),
+    id: data.id || crypto.randomUUID(),
     userId,
     createdAt: now,
     updatedAt: now,
