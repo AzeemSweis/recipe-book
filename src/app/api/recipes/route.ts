@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { auth } from "@clerk/nextjs/server";
+import { getAuthenticatedUserId } from "@/lib/auth";
 import { getRecipes, saveRecipe } from "@/lib/storage";
 import { Recipe } from "@/lib/types";
 import crypto from "crypto";
@@ -7,7 +7,7 @@ import crypto from "crypto";
 export const dynamic = "force-dynamic";
 
 export async function GET(req: Request) {
-  const { userId } = await auth();
+  const userId = await getAuthenticatedUserId(req);
   if (!userId) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
@@ -15,7 +15,7 @@ export async function GET(req: Request) {
 }
 
 export async function POST(req: Request) {
-  const { userId } = await auth();
+  const userId = await getAuthenticatedUserId(req);
   if (!userId) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }

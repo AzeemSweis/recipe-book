@@ -1,11 +1,11 @@
 import { NextResponse } from "next/server";
-import { auth } from "@clerk/nextjs/server";
+import { getAuthenticatedUserId } from "@/lib/auth";
 import { deleteRecipe, getRecipe, saveRecipe } from "@/lib/storage";
 
 type Props = { params: Promise<{ id: string }> };
 
 export async function DELETE(req: Request, { params }: Props) {
-  const { userId } = await auth();
+  const userId = await getAuthenticatedUserId(req);
   if (!userId) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
@@ -19,7 +19,7 @@ export async function DELETE(req: Request, { params }: Props) {
 }
 
 export async function PUT(req: Request, { params }: Props) {
-  const { userId } = await auth();
+  const userId = await getAuthenticatedUserId(req);
   if (!userId) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
