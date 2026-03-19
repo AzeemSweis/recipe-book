@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "primary-container": "#ffedd5",
+              "inverse-primary": "#fbbf24",
+              "on-error-container": "#991b1b",
+              "secondary-fixed": "#e2e8f0",
+              "surface-container-high": "#e9e8e6",
+              "outline": "#e2e8f0",
+              "inverse-surface": "#1e293b",
+              "surface-dim": "#f8f7f5",
+              "on-surface-variant": "#64748b",
+              "tertiary-fixed": "#e0f2fe",
+              "secondary-container": "#f1f5f9",
+              "background": "#f8f7f5",
+              "on-error": "#ffffff",
+              "inverse-on-surface": "#f8fafc",
+              "on-secondary-fixed-variant": "#334155",
+              "surface-variant": "#f1f5f9",
+              "primary": "#f5a30a",
+              "tertiary-container": "#e0f2fe",
+              "outline-variant": "#cbd5e1",
+              "tertiary": "#0ea5e9",
+              "tertiary-fixed-dim": "#bae6fd",
+              "secondary": "#475569",
+              "on-tertiary-fixed-variant": "#0369a1",
+              "on-secondary-container": "#1e293b",
+              "error-container": "#fee2e2",
+              "on-primary-container": "#7c2d12",
+              "on-primary": "#ffffff",
+              "on-secondary": "#ffffff",
+              "primary-fixed-dim": "#fed7aa",
+              "surface-container-lowest": "#ffffff",
+              "surface-container": "#f1f0ee",
+              "primary-fixed": "#ffedd5",
+              "on-primary-fixed-variant": "#9a3412",
+              "on-tertiary-fixed": "#082f49",
+              "secondary-fixed-dim": "#cbd5e1",
+              "on-tertiary": "#ffffff",
+              "on-background": "#0f172a",
+              "surface-container-highest": "#e2e8f0",
+              "surface-tint": "#f5a30a",
+              "surface": "#ffffff",
+              "on-secondary-fixed": "#0f172a",
+              "on-tertiary-container": "#0369a1",
+              "surface-container-low": "#f8f7f5",
+              "on-primary-fixed": "#431407",
+              "surface-bright": "#ffffff",
+              "on-surface": "#0f172a",
+              "error": "#ef4444"
+            },
+            fontFamily: {
+              "headline": ["Inter"],
+              "body": ["Inter"],
+              "label": ["Inter"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "2xl": "1rem", "3xl": "1.5rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        ::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background font-body antialiased">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md shadow-sm">
+<div class="flex items-center justify-between px-6 h-20 w-full">
+<div class="flex items-center gap-4">
+<button class="flex items-center justify-center w-10 h-10 rounded-full hover:bg-amber-50 dark:hover:bg-amber-900/20 transition-colors active:scale-95 duration-200">
+<span class="material-symbols-outlined text-slate-900 dark:text-slate-50">menu</span>
+</button>
+<h1 class="font-headline font-bold text-[30px] tracking-tight text-slate-900 dark:text-slate-50">Saffron Harvest</h1>
+</div>
+<div class="w-10 h-10 rounded-full overflow-hidden shadow-sm border-2 border-primary/20">
+<img class="w-full h-full object-cover" data-alt="User profile avatar circle crop" src="https://lh3.googleusercontent.com/aida-public/AB6AXuALfSAKIOYripPp2Ga03WpRVo20gdCA9WVFcsm4mBHWcxy9qicgm6eClUa3zJzxyVwvh1q-0B2-Mu8FHwjzZyV06FWvVJXv05_OZfF4kPKXbvvz2RrWhmPVt-bU6cKFTWtDEZYA_z5LQrwOY0LtJUG0-W5lnd7HIPPes9v7O9SOdpJpS35c9RnWgxDhkTq-YQv68h5jR7rWsD5Lwq-qrWbRo_sYSHbzUgT06v16Lr8pii5joMP0RuMO9gPxqmUxuDiQkY21GIQZolMr"/>
+</div>
+</div>
+</header>
+<main class="pt-24 pb-32 px-6">
+<!-- Search Section -->
+<section class="mb-8">
+<div class="relative flex items-center group">
+<span class="material-symbols-outlined absolute left-4 text-primary">search</span>
+<input class="w-full h-14 pl-12 pr-4 rounded-2xl border-none bg-primary/5 focus:ring-2 focus:ring-primary/30 transition-all placeholder:text-slate-400 text-on-surface" placeholder="Search gourmet recipes..." type="text"/>
+<button class="absolute right-3 w-8 h-8 flex items-center justify-center bg-white rounded-lg shadow-sm">
+<span class="material-symbols-outlined text-slate-500 text-[20px]">tune</span>
+</button>
+</div>
+</section>
+<!-- Category Filter -->
+<section class="mb-10 -mx-6">
+<div class="flex overflow-x-auto no-scrollbar gap-3 px-6">
+<button class="whitespace-nowrap px-6 py-2.5 rounded-full bg-primary text-on-primary font-bold text-xs tracking-wider shadow-lg shadow-primary/20 transition-transform active:scale-95">ALL RECIPES</button>
+<button class="whitespace-nowrap px-6 py-2.5 rounded-full bg-surface text-slate-500 font-bold text-xs tracking-wider border border-outline-variant hover:border-primary/50 transition-colors">CHICKEN</button>
+<button class="whitespace-nowrap px-6 py-2.5 rounded-full bg-surface text-slate-500 font-bold text-xs tracking-wider border border-outline-variant hover:border-primary/50 transition-colors">QUICK</button>
+<button class="whitespace-nowrap px-6 py-2.5 rounded-full bg-surface text-slate-500 font-bold text-xs tracking-wider border border-outline-variant hover:border-primary/50 transition-colors">ITALIAN</button>
+<button class="whitespace-nowrap px-6 py-2.5 rounded-full bg-surface text-slate-500 font-bold text-xs tracking-wider border border-outline-variant hover:border-primary/50 transition-colors">DESSERT</button>
+</div>
+</section>
+<!-- Recipe Feed (Vertical Cards) -->
+<div class="flex flex-col gap-10">
+<!-- Card 1 -->
+<article class="group relative bg-surface rounded-3xl overflow-hidden shadow-md transition-all hover:shadow-xl active:scale-[0.98]">
+<div class="relative aspect-video overflow-hidden">
+<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="Vibrant healthy salad bowl with salmon" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD9w7X-NxF5ZzozhL2YCIvU0SmJjrTuu5A6sHj-h4Ta69QtvedDzYhYdKMR6C6Cji_3oNi8peOTEBq0KvVJCXRPuLbCvJ-Qxd_o_begMq9My59lLp7pKJFqbT53i6rCGVoypUD3BKoAECj0WTdK7-cPKoj7s9yRN9OuCuwPWCyL0vBPG6UQBFRA5QKWPAC2fl9np7O9i-eNECtXXy5WHokIJ6MN_Jb1A0p4ymwGFcolkykHjZZYt7eV7VSP5RXVQlKSwiHwENq_bMwJ"/>
+<div class="absolute top-4 left-4 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full shadow-sm">
+<span class="text-[10px] font-black uppercase tracking-[0.1em] text-primary">Main Course</span>
+</div>
+<button class="absolute top-4 right-4 w-10 h-10 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center text-slate-400 hover:text-red-500 transition-colors">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">favorite</span>
+</button>
+</div>
+<div class="p-6">
+<h2 class="font-headline font-bold text-[20px] text-slate-900 mb-4 leading-tight">Pan-Seared Salmon with Saffron Infused Quinoa</h2>
+<div class="flex items-center justify-between border-t border-slate-50 pt-4">
+<div class="flex flex-col items-center gap-1">
+<span class="text-[10px] font-extrabold uppercase tracking-widest text-slate-400">Prep</span>
+<span class="text-xs font-bold text-slate-700">15 MIN</span>
+</div>
+<div class="w-px h-6 bg-slate-100"></div>
+<div class="flex flex-col items-center gap-1">
+<span class="text-[10px] font-extrabold uppercase tracking-widest text-slate-400">Cook</span>
+<span class="text-xs font-bold text-slate-700">20 MIN</span>
+</div>
+<div class="w-px h-6 bg-slate-100"></div>
+<div class="flex flex-col items-center gap-1">
+<span class="text-[10px] font-extrabold uppercase tracking-widest text-slate-400">Serves</span>
+<span class="text-xs font-bold text-slate-700">2 PERS</span>
+</div>
+</div>
+</div>
+</article>
+<!-- Card 2 -->
+<article class="group relative bg-surface rounded-3xl overflow-hidden shadow-md transition-all hover:shadow-xl active:scale-[0.98]">
+<div class="relative aspect-video overflow-hidden">
+<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="Fresh mediterranean vegetable bowl with hummus" src="https://lh3.googleusercontent.com/aida-public/AB6AXuABRjwFCPs35WtyDjqcgMkx2sA59SHqGMDIzsWNEkBcqcENvWUzlTenNrM6ctb95-f2NmKe-JPkBRrbTmyz3mJpi0uQfpP-0TWkTjUb2AJC_2gtIDypFn6L9jKODGeHcULKPFbouEZPYM9ReZ-3mWolSyjCSzxXdVzrwj2vy_eQz4M0lW2d77qoqmXUBbSGwqiFeGzBDQoWtvHE91SBhup1rIazmxhWlMR3Pns_WWCGxdDd77tKJLvdi3gk6EdrSYSCBE0LoAvH5VhF"/>
+<div class="absolute top-4 left-4 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full shadow-sm">
+<span class="text-[10px] font-black uppercase tracking-[0.1em] text-primary">Mediterranean</span>
+</div>
+<button class="absolute top-4 right-4 w-10 h-10 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center text-slate-400 hover:text-red-500 transition-colors">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">favorite</span>
+</button>
+</div>
+<div class="p-6">
+<h2 class="font-headline font-bold text-[20px] text-slate-900 mb-4 leading-tight">Heirloom Harvest Bowl with Tahini Drizzle</h2>
+<div class="flex items-center justify-between border-t border-slate-50 pt-4">
+<div class="flex flex-col items-center gap-1">
+<span class="text-[10px] font-extrabold uppercase tracking-widest text-slate-400">Prep</span>
+<span class="text-xs font-bold text-slate-700">10 MIN</span>
+</div>
+<div class="w-px h-6 bg-slate-100"></div>
+<div class="flex flex-col items-center gap-1">
+<span class="text-[10px] font-extrabold uppercase tracking-widest text-slate-400">Cook</span>
+<span class="text-xs font-bold text-slate-700">0 MIN</span>
+</div>
+<div class="w-px h-6 bg-slate-100"></div>
+<div class="flex flex-col items-center gap-1">
+<span class="text-[10px] font-extrabold uppercase tracking-widest text-slate-400">Serves</span>
+<span class="text-xs font-bold text-slate-700">1 PERS</span>
+</div>
+</div>
+</div>
+</article>
+<!-- Card 3 -->
+<article class="group relative bg-surface rounded-3xl overflow-hidden shadow-md transition-all hover:shadow-xl active:scale-[0.98]">
+<div class="relative aspect-video overflow-hidden">
+<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="Artisanal chocolate cupcakes with berry frosting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBi5ZVaX6o5vujxVP3c41e5pXEEJ48AKexctamZRcZYo0SUdZovvN3hXw70qYM_ASr8W718HsX-lXfYnWP8YDOOyc2ZQ7HaFOGuMJHkX2vmeVu4ZxrIRqshsAMKHZlO7H6XMVFU8gZPKHJGXly9SMhjHhMbKMG76mhXPkjVnAERVMzbHCCbgNdvBhFXxzc5Pveb3FPX4-WoKx-j16RZP7Xf9zzx6Vx-p8374YX41x6F4iCKw9IIsQ48Hn9xvfRpYgq1H4Xc7i8Lwmaz"/>
+<div class="absolute top-4 left-4 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full shadow-sm">
+<span class="text-[10px] font-black uppercase tracking-[0.1em] text-primary">Dessert</span>
+</div>
+<button class="absolute top-4 right-4 w-10 h-10 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center text-slate-400 hover:text-red-500 transition-colors">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">favorite</span>
+</button>
+</div>
+<div class="p-6">
+<h2 class="font-headline font-bold text-[20px] text-slate-900 mb-4 leading-tight">Dark Cacao Velvet Cakes with Raspberry Foam</h2>
+<div class="flex items-center justify-between border-t border-slate-50 pt-4">
+<div class="flex flex-col items-center gap-1">
+<span class="text-[10px] font-extrabold uppercase tracking-widest text-slate-400">Prep</span>
+<span class="text-xs font-bold text-slate-700">25 MIN</span>
+</div>
+<div class="w-px h-6 bg-slate-100"></div>
+<div class="flex flex-col items-center gap-1">
+<span class="text-[10px] font-extrabold uppercase tracking-widest text-slate-400">Cook</span>
+<span class="text-xs font-bold text-slate-700">15 MIN</span>
+</div>
+<div class="w-px h-6 bg-slate-100"></div>
+<div class="flex flex-col items-center gap-1">
+<span class="text-[10px] font-extrabold uppercase tracking-widest text-slate-400">Serves</span>
+<span class="text-xs font-bold text-slate-700">6 PERS</span>
+</div>
+</div>
+</div>
+</article>
+</div>
+</main>
+<!-- Floating Action Button -->
+<button class="fixed bottom-24 right-6 w-14 h-14 bg-primary text-on-primary rounded-full shadow-2xl flex items-center justify-center transition-transform hover:scale-110 active:scale-90 z-[60]">
+<span class="material-symbols-outlined text-[28px]">add</span>
+</button>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 w-full z-50 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md rounded-t-3xl shadow-[0_-4px_20px_rgba(0,0,0,0.05)]">
+<div class="flex justify-around items-center h-20 px-4 pb-safe w-full">
+<a class="flex flex-col items-center justify-center text-amber-500 dark:text-amber-400 bg-amber-50 dark:bg-amber-900/30 rounded-2xl px-4 py-2 active:scale-90 transition-transform duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="home" style="font-variation-settings: 'FILL' 1;">home</span>
+<span class="font-['Inter'] text-[12px] font-bold uppercase tracking-wider mt-1">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center text-slate-400 dark:text-slate-500 px-4 py-2 active:scale-90 transition-transform duration-200 hover:text-amber-600" href="#">
+<span class="material-symbols-outlined" data-icon="restaurant_menu">restaurant_menu</span>
+<span class="font-['Inter'] text-[12px] font-bold uppercase tracking-wider mt-1">Recipes</span>
+</a>
+<a class="flex flex-col items-center justify-center text-slate-400 dark:text-slate-500 px-4 py-2 active:scale-90 transition-transform duration-200 hover:text-amber-600" href="#">
+<span class="material-symbols-outlined" data-icon="bookmark">bookmark</span>
+<span class="font-['Inter'] text-[12px] font-bold uppercase tracking-wider mt-1">Saved</span>
+</a>
+<a class="flex flex-col items-center justify-center text-slate-400 dark:text-slate-500 px-4 py-2 active:scale-90 transition-transform duration-200 hover:text-amber-600" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span class="font-['Inter'] text-[12px] font-bold uppercase tracking-wider mt-1">Settings</span>
+</a>
+</div>
+</nav>
+</body></html>

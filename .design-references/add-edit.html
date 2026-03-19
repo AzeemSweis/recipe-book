@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "surface-container": "#f1f0ee",
+              "secondary-container": "#f1f5f9",
+              "on-tertiary-container": "#0369a1",
+              "error": "#ef4444",
+              "background": "#f8f7f5",
+              "surface-container-highest": "#e2e8f0",
+              "on-primary-container": "#7c2d12",
+              "outline": "#e2e8f0",
+              "on-tertiary": "#ffffff",
+              "tertiary-fixed-dim": "#bae6fd",
+              "secondary-fixed-dim": "#cbd5e1",
+              "secondary-fixed": "#e2e8f0",
+              "tertiary": "#0ea5e9",
+              "on-secondary-container": "#1e293b",
+              "surface-container-high": "#e9e8e6",
+              "surface-bright": "#ffffff",
+              "on-tertiary-fixed": "#082f49",
+              "inverse-on-surface": "#f8fafc",
+              "on-primary": "#ffffff",
+              "on-secondary-fixed-variant": "#334155",
+              "tertiary-fixed": "#e0f2fe",
+              "surface-container-low": "#f8f7f5",
+              "surface": "#ffffff",
+              "surface-tint": "#f5a30a",
+              "on-tertiary-fixed-variant": "#0369a1",
+              "secondary": "#475569",
+              "on-error": "#ffffff",
+              "on-surface": "#0f172a",
+              "tertiary-container": "#e0f2fe",
+              "primary-fixed": "#ffedd5",
+              "on-primary-fixed": "#431407",
+              "on-secondary-fixed": "#0f172a",
+              "on-secondary": "#ffffff",
+              "on-primary-fixed-variant": "#9a3412",
+              "on-error-container": "#991b1b",
+              "surface-variant": "#f1f5f9",
+              "on-surface-variant": "#64748b",
+              "surface-dim": "#f8f7f5",
+              "on-background": "#0f172a",
+              "inverse-surface": "#1e293b",
+              "primary": "#f5a30a",
+              "outline-variant": "#cbd5e1",
+              "inverse-primary": "#fbbf24",
+              "error-container": "#fee2e2",
+              "primary-fixed-dim": "#fed7aa",
+              "primary-container": "#ffedd5"
+            },
+            fontFamily: {
+              "headline": ["Inter"],
+              "body": ["Inter"],
+              "label": ["Inter"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+      .material-symbols-outlined {
+        font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      }
+      .glass-effect {
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+      }
+      body {
+        background-color: #f8f7f5;
+        font-family: 'Inter', sans-serif;
+      }
+    </style>
+</head>
+<body class="text-on-background antialiased">
+<!-- TopNavBar -->
+<nav class="fixed top-0 w-full z-50 bg-white/80 backdrop-blur-md shadow-sm">
+<div class="flex justify-between items-center h-20 px-8 max-w-screen-2xl mx-auto">
+<div class="text-2xl font-bold tracking-tight text-amber-600">Saffron Harvest</div>
+<div class="hidden md:flex items-center gap-8">
+<a class="text-slate-500 hover:text-slate-900 transition-colors" href="#">Discover</a>
+<a class="text-amber-600 font-semibold border-b-2 border-amber-500 pb-1" href="#">My Kitchen</a>
+<a class="text-slate-500 hover:text-slate-900 transition-colors" href="#">Import</a>
+<a class="text-slate-500 hover:text-slate-900 transition-colors" href="#">Community</a>
+</div>
+<div class="flex items-center gap-4">
+<div class="relative hidden lg:block">
+<input class="bg-primary/5 border-none rounded-full py-2 px-6 focus:ring-2 focus:ring-primary/20 w-64 text-sm" placeholder="Search culinary secrets..." type="text"/>
+</div>
+<button class="p-2 text-slate-500 hover:bg-slate-50/50 rounded-full transition-all">
+<span class="material-symbols-outlined" data-icon="account_circle">account_circle</span>
+</button>
+</div>
+</div>
+</nav>
+<!-- Main Content Canvas -->
+<main class="pt-32 pb-20 px-4 md:px-8 max-w-4xl mx-auto">
+<!-- Header Section -->
+<header class="mb-12 text-center md:text-left">
+<h1 class="text-[30px] font-extrabold tracking-tight text-slate-900 mb-2">Create New Masterpiece</h1>
+<p class="text-slate-500 font-medium">Document your culinary alchemy for the world to taste.</p>
+</header>
+<form class="space-y-12">
+<!-- Hero Image Section -->
+<section class="relative group">
+<label class="block text-[12px] font-extrabold uppercase tracking-widest text-slate-400 mb-4">Upload Hero Image</label>
+<div class="aspect-video w-full rounded-xl bg-surface-container border-2 border-dashed border-outline-variant flex flex-col items-center justify-center cursor-pointer overflow-hidden transition-all hover:border-primary/50 group">
+<div class="flex flex-col items-center group-hover:scale-105 transition-transform duration-300">
+<span class="material-symbols-outlined text-4xl text-primary mb-3" data-icon="add_a_photo">add_a_photo</span>
+<p class="text-sm font-semibold text-slate-600">Drag or click to upload recipe cover</p>
+<p class="text-[10px] text-slate-400 mt-1 uppercase font-bold tracking-tighter">Recommended: 16:9 Aspect Ratio</p>
+</div>
+<!-- Hidden Img Placeholder -->
+<img class="hidden" data-alt="Vibrant top-down photo of a plated gourmet saffron dish" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"/>
+</div>
+</section>
+<!-- Basic Info Grid -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+<div class="md:col-span-2 space-y-2">
+<label class="block text-[12px] font-extrabold uppercase tracking-widest text-slate-400">Recipe Title</label>
+<input class="w-full bg-surface border-none shadow-md rounded-xl p-4 focus:ring-2 focus:ring-primary/20 text-lg font-semibold text-slate-900 placeholder:text-slate-300" placeholder="e.g. Saffron Infused Sea Bass" type="text"/>
+</div>
+<div class="space-y-2">
+<label class="block text-[12px] font-extrabold uppercase tracking-widest text-slate-400">Category</label>
+<select class="w-full bg-surface border-none shadow-md rounded-xl p-4 focus:ring-2 focus:ring-primary/20 text-slate-600 appearance-none">
+<option>Main Course</option>
+<option>Appetizer</option>
+<option>Dessert</option>
+<option>Beverage</option>
+<option>Breakfast</option>
+</select>
+</div>
+</div>
+<!-- Description -->
+<section class="space-y-2">
+<label class="block text-[12px] font-extrabold uppercase tracking-widest text-slate-400">Description</label>
+<textarea class="w-full bg-surface border-none shadow-md rounded-xl p-4 focus:ring-2 focus:ring-primary/20 text-slate-600 leading-relaxed" placeholder="Describe the soul of this dish..." rows="3"></textarea>
+</section>
+<!-- Stats Bar -->
+<div class="grid grid-cols-3 gap-4 p-4 bg-surface-container-high rounded-xl">
+<div class="text-center">
+<span class="block text-[10px] font-extrabold text-slate-400 uppercase tracking-tighter">Prep</span>
+<input class="w-full bg-transparent border-none text-center font-bold text-slate-900 p-1 focus:ring-0" placeholder="15m" type="text"/>
+</div>
+<div class="text-center border-x border-outline">
+<span class="block text-[10px] font-extrabold text-slate-400 uppercase tracking-tighter">Cook</span>
+<input class="w-full bg-transparent border-none text-center font-bold text-slate-900 p-1 focus:ring-0" placeholder="45m" type="text"/>
+</div>
+<div class="text-center">
+<span class="block text-[10px] font-extrabold text-slate-400 uppercase tracking-tighter">Serves</span>
+<input class="w-full bg-transparent border-none text-center font-bold text-slate-900 p-1 focus:ring-0" placeholder="4" type="text"/>
+</div>
+</div>
+<!-- Ingredients & Instructions Bento -->
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+<!-- Ingredients -->
+<section class="bg-surface p-6 rounded-xl shadow-md space-y-4">
+<div class="flex justify-between items-center mb-2">
+<label class="block text-[12px] font-extrabold uppercase tracking-widest text-slate-400">Ingredients</label>
+<button class="text-primary hover:bg-primary/5 p-1 rounded-full transition-colors" type="button">
+<span class="material-symbols-outlined" data-icon="add_circle">add_circle</span>
+</button>
+</div>
+<div class="space-y-3">
+<div class="flex gap-2 group">
+<input class="w-16 bg-surface-container-low border-none rounded-lg p-2 text-sm" placeholder="2g" type="text"/>
+<input class="flex-1 bg-surface-container-low border-none rounded-lg p-2 text-sm" placeholder="Premium Saffron Threads" type="text"/>
+</div>
+<div class="flex gap-2 group">
+<input class="w-16 bg-surface-container-low border-none rounded-lg p-2 text-sm" placeholder="500g" type="text"/>
+<input class="flex-1 bg-surface-container-low border-none rounded-lg p-2 text-sm" placeholder="Arborio Rice" type="text"/>
+</div>
+<div class="flex gap-2 group">
+<input class="w-16 bg-surface-container-low border-none rounded-lg p-2 text-sm" placeholder="1L" type="text"/>
+<input class="flex-1 bg-surface-container-low border-none rounded-lg p-2 text-sm" placeholder="Vegetable Stock" type="text"/>
+</div>
+</div>
+</section>
+<!-- Instructions -->
+<section class="bg-surface p-6 rounded-xl shadow-md space-y-4">
+<div class="flex justify-between items-center mb-2">
+<label class="block text-[12px] font-extrabold uppercase tracking-widest text-slate-400">Instructions</label>
+<button class="text-primary hover:bg-primary/5 p-1 rounded-full transition-colors" type="button">
+<span class="material-symbols-outlined" data-icon="add_task">add_task</span>
+</button>
+</div>
+<div class="space-y-4">
+<div class="flex gap-4">
+<span class="flex-shrink-0 w-6 h-6 rounded-full bg-primary text-white text-[10px] flex items-center justify-center font-bold">1</span>
+<textarea class="flex-1 bg-transparent border-none p-0 focus:ring-0 text-sm leading-relaxed text-slate-600" placeholder="Toast the saffron threads lightly..." rows="2"></textarea>
+</div>
+<div class="flex gap-4">
+<span class="flex-shrink-0 w-6 h-6 rounded-full bg-surface-container-highest text-slate-400 text-[10px] flex items-center justify-center font-bold">2</span>
+<textarea class="flex-1 bg-transparent border-none p-0 focus:ring-0 text-sm leading-relaxed text-slate-600" placeholder="Heat the stock to a simmer..." rows="2"></textarea>
+</div>
+</div>
+</section>
+</div>
+<!-- Form Actions -->
+<footer class="flex items-center justify-between pt-8 border-t border-outline">
+<button class="px-6 py-3 rounded-full text-slate-500 font-semibold hover:bg-slate-100 transition-all" type="button">
+                    Discard Draft
+                </button>
+<div class="flex gap-4">
+<button class="px-8 py-3 rounded-full border border-outline-variant font-semibold text-slate-600 hover:bg-white hover:shadow-md transition-all" type="button">
+                        Save to Drafts
+                    </button>
+<button class="px-10 py-3 rounded-full bg-primary text-white font-bold shadow-xl shadow-primary/20 hover:scale-[1.02] active:scale-[0.98] transition-all" type="submit">
+                        Save Recipe
+                    </button>
+</div>
+</footer>
+</form>
+</main>
+<!-- Footer -->
+<footer class="w-full py-12 px-8 mt-20 bg-slate-50 border-t border-slate-200">
+<div class="flex flex-col md:flex-row justify-between items-center gap-6 max-w-screen-2xl mx-auto">
+<div class="text-lg font-bold text-slate-900">Saffron Harvest</div>
+<div class="text-[14px] leading-relaxed text-slate-500">© 2024 Saffron Harvest. Cultivating the Art of Gastronomy.</div>
+<div class="flex gap-6">
+<a class="text-slate-500 hover:text-amber-600 underline underline-offset-4 transition-all" href="#">About</a>
+<a class="text-slate-500 hover:text-amber-600 underline underline-offset-4 transition-all" href="#">Privacy Policy</a>
+<a class="text-slate-500 hover:text-amber-600 underline underline-offset-4 transition-all" href="#">Terms of Service</a>
+<a class="text-slate-500 hover:text-amber-600 underline underline-offset-4 transition-all" href="#">Contact Us</a>
+</div>
+</div>
+</footer>
+</body></html>

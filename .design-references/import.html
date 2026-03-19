@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "surface-container": "#f1f0ee",
+              "secondary-container": "#f1f5f9",
+              "on-tertiary-container": "#0369a1",
+              "error": "#ef4444",
+              "background": "#f8f7f5",
+              "surface-container-highest": "#e2e8f0",
+              "on-primary-container": "#7c2d12",
+              "outline": "#e2e8f0",
+              "on-tertiary": "#ffffff",
+              "tertiary-fixed-dim": "#bae6fd",
+              "secondary-fixed-dim": "#cbd5e1",
+              "secondary-fixed": "#e2e8f0",
+              "tertiary": "#0ea5e9",
+              "on-secondary-container": "#1e293b",
+              "surface-container-high": "#e9e8e6",
+              "surface-bright": "#ffffff",
+              "on-tertiary-fixed": "#082f49",
+              "inverse-on-surface": "#f8fafc",
+              "on-primary": "#ffffff",
+              "on-secondary-fixed-variant": "#334155",
+              "tertiary-fixed": "#e0f2fe",
+              "surface-container-low": "#f8f7f5",
+              "surface": "#ffffff",
+              "surface-tint": "#f5a30a",
+              "on-tertiary-fixed-variant": "#0369a1",
+              "secondary": "#475569",
+              "on-error": "#ffffff",
+              "on-surface": "#0f172a",
+              "tertiary-container": "#e0f2fe",
+              "primary-fixed": "#ffedd5",
+              "on-primary-fixed": "#431407",
+              "on-secondary-fixed": "#0f172a",
+              "on-secondary": "#ffffff",
+              "on-primary-fixed-variant": "#9a3412",
+              "on-error-container": "#991b1b",
+              "surface-variant": "#f1f5f9",
+              "surface-container-lowest": "#ffffff",
+              "on-surface-variant": "#64748b",
+              "surface-dim": "#f8f7f5",
+              "on-background": "#0f172a",
+              "inverse-surface": "#1e293b",
+              "primary": "#f5a30a",
+              "outline-variant": "#cbd5e1",
+              "inverse-primary": "#fbbf24",
+              "error-container": "#fee2e2",
+              "primary-fixed-dim": "#fed7aa",
+              "primary-container": "#ffedd5"
+            },
+            fontFamily: {
+              "headline": ["Inter"],
+              "body": ["Inter"],
+              "label": ["Inter"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-header {
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+    </style>
+</head>
+<body class="bg-background font-body text-on-background min-h-screen">
+<!-- TopNavBar -->
+<nav class="fixed top-0 w-full z-50 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md shadow-sm">
+<div class="flex justify-between items-center h-20 px-8 max-w-screen-2xl mx-auto">
+<div class="text-2xl font-bold tracking-tight text-amber-600 dark:text-amber-500 font-headline">Saffron Harvest</div>
+<div class="hidden md:flex items-center gap-8">
+<a class="text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100 transition-colors" href="#">Discover</a>
+<a class="text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100 transition-colors" href="#">My Kitchen</a>
+<a class="text-amber-600 dark:text-amber-400 font-semibold border-b-2 border-amber-500 pb-1" href="#">Import</a>
+<a class="text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100 transition-colors" href="#">Community</a>
+</div>
+<div class="flex items-center gap-4">
+<button class="p-2 rounded-full hover:bg-slate-50/50 dark:hover:bg-slate-800/50 transition-all duration-300">
+<span class="material-symbols-outlined text-slate-900 dark:text-slate-100" data-icon="account_circle">account_circle</span>
+</button>
+</div>
+</div>
+</nav>
+<main class="pt-32 pb-20 px-6 max-w-5xl mx-auto">
+<!-- Hero Section -->
+<header class="text-center mb-16">
+<h1 class="text-4xl md:text-5xl font-extrabold tracking-tight text-on-surface font-headline mb-4">Import Your Next Masterpiece</h1>
+<p class="text-lg text-on-surface-variant max-w-2xl mx-auto">Turn any cooking blog, news article, or website into a clean, structured recipe in seconds.</p>
+</header>
+<!-- Main Input Interaction -->
+<section class="mb-20">
+<div class="bg-surface rounded-2xl p-2 md:p-3 shadow-md flex flex-col md:flex-row gap-3 items-center group focus-within:shadow-lg transition-all duration-300">
+<div class="flex items-center w-full px-4 gap-3">
+<span class="material-symbols-outlined text-primary" data-icon="link">link</span>
+<input class="w-full bg-transparent border-none focus:ring-0 text-lg placeholder:text-outline-variant py-4" placeholder="Paste recipe URL here (e.g., nytdining.com/risotto)" type="text"/>
+</div>
+<button class="w-full md:w-auto px-8 py-4 bg-primary text-on-primary font-bold rounded-xl shadow-[0_4px_20px_rgba(245,163,10,0.2)] hover:shadow-[0_8px_25px_rgba(245,163,10,0.3)] hover:scale-[1.02] active:scale-[0.98] transition-all whitespace-nowrap">
+                    Fetch Recipe
+                </button>
+</div>
+</section>
+<!-- How it Works Bento Grid -->
+<section class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-24">
+<div class="bg-surface p-8 rounded-xl shadow-md border-t-4 border-primary/20">
+<div class="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mb-6">
+<span class="material-symbols-outlined text-primary" data-icon="auto_awesome">auto_awesome</span>
+</div>
+<h3 class="text-xl font-bold mb-3 font-headline">Smart Extraction</h3>
+<p class="text-on-surface-variant leading-relaxed">Our AI automatically filters out the life story and ads, focusing only on the ingredients and instructions.</p>
+</div>
+<div class="bg-surface p-8 rounded-xl shadow-md border-t-4 border-primary/20">
+<div class="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mb-6">
+<span class="material-symbols-outlined text-primary" data-icon="category">category</span>
+</div>
+<h3 class="text-xl font-bold mb-3 font-headline">Unit Conversion</h3>
+<p class="text-on-surface-variant leading-relaxed">Ingredients are automatically parsed and can be toggled between metric and imperial measurements instantly.</p>
+</div>
+<div class="bg-surface p-8 rounded-xl shadow-md border-t-4 border-primary/20">
+<div class="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mb-6">
+<span class="material-symbols-outlined text-primary" data-icon="cloud_download">cloud_download</span>
+</div>
+<h3 class="text-xl font-bold mb-3 font-headline">Save Forever</h3>
+<p class="text-on-surface-variant leading-relaxed">Imported recipes are saved to your personal vault, accessible offline and formatted for your tablet.</p>
+</div>
+</section>
+<!-- Preview Area (Placeholder State) -->
+<section class="bg-surface-container-low rounded-2xl p-8 border-2 border-dashed border-outline-variant relative overflow-hidden">
+<div class="flex flex-col items-center justify-center py-20 text-center opacity-40">
+<span class="material-symbols-outlined text-6xl mb-4" data-icon="description">description</span>
+<p class="text-lg font-medium">A preview of your imported recipe will appear here.</p>
+<p class="text-sm">Ingredients, steps, and imagery will be beautifully formatted.</p>
+</div>
+<!-- Asymmetric Design Elements for High-End Look -->
+<div class="absolute -right-12 -bottom-12 w-48 h-48 bg-primary/5 rounded-full blur-3xl"></div>
+<div class="absolute top-10 right-10 flex flex-col gap-4">
+<div class="w-32 h-4 bg-outline-variant/20 rounded-full"></div>
+<div class="w-48 h-4 bg-outline-variant/20 rounded-full"></div>
+<div class="w-24 h-4 bg-outline-variant/20 rounded-full"></div>
+</div>
+<div class="absolute top-10 left-10 w-24 h-24 bg-outline-variant/10 rounded-xl"></div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="bg-slate-50 dark:bg-slate-950 border-t border-slate-200 dark:border-slate-800 w-full py-12 px-8 mt-20">
+<div class="flex flex-col md:flex-row justify-between items-center gap-6 max-w-screen-2xl mx-auto">
+<div class="flex flex-col items-center md:items-start">
+<div class="text-lg font-bold text-slate-900 dark:text-slate-100 font-headline mb-2">Saffron Harvest</div>
+<p class="font-['Inter'] text-sm leading-relaxed text-slate-500 dark:text-slate-400">© 2024 Saffron Harvest. Cultivating the Art of Gastronomy.</p>
+</div>
+<div class="flex gap-8">
+<a class="text-sm text-slate-500 dark:text-slate-400 hover:text-amber-600 dark:hover:text-amber-400 underline underline-offset-4 transition-all" href="#">About</a>
+<a class="text-sm text-slate-500 dark:text-slate-400 hover:text-amber-600 dark:hover:text-amber-400 underline underline-offset-4 transition-all" href="#">Privacy Policy</a>
+<a class="text-sm text-slate-500 dark:text-slate-400 hover:text-amber-600 dark:hover:text-amber-400 underline underline-offset-4 transition-all" href="#">Terms of Service</a>
+<a class="text-sm text-slate-500 dark:text-slate-400 hover:text-amber-600 dark:hover:text-amber-400 underline underline-offset-4 transition-all" href="#">Contact Us</a>
+</div>
+</div>
+</footer>
+</body></html>

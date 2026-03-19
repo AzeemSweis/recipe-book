@@ -1,17 +1,37 @@
 @import "tailwindcss";
 
+@theme {
+  --color-primary: #f5a30a;
+  --color-primary-container: #ffedd5;
+  --color-background: #f8f7f5;
+  --color-background-dark: #221c10;
+  --color-surface: #ffffff;
+  --color-surface-dark: #2a2318;
+  --color-on-surface: #0f172a;
+  --color-on-surface-variant: #64748b;
+  --color-outline-variant: #cbd5e1;
+  --color-error: #ef4444;
+  --color-tertiary: #0ea5e9;
+  --color-secondary: #475569;
+}
+
 @custom-variant dark (&:where(.dark, .dark *));
 
 @layer base {
-  body { font-family: "Inter", -apple-system, BlinkMacSystemFont, sans-serif; }
-  code, .font-mono { font-family: "JetBrains Mono", "SF Mono", monospace; }
+  body {
+    font-family: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
+  }
+  .material-symbols-outlined {
+    font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+    vertical-align: middle;
+  }
 }
 
 /* Force color-scheme so Safari respects our theme for native elements */
 html.dark { color-scheme: dark; }
 html:not(.dark) { color-scheme: light; }
 
-::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar { width: 6px; height: 4px; }
 ::-webkit-scrollbar-track { background: transparent; }
-::-webkit-scrollbar-thumb { background: #d4d4d8; border-radius: 3px; }
+::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
 .dark ::-webkit-scrollbar-thumb { background: #3f3f46; }

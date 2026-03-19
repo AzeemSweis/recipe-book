@@ -45,7 +45,10 @@ export default async function EditRecipePage({ params }: Props) {
 
   return (
     <div>
-      <Link href={`/recipe/${id}`} className="text-sm text-zinc-500 hover:text-rose-500 dark:hover:text-rose-400 mb-6 inline-block transition-colors">← Back to recipe</Link>
+      <Link href={`/recipe/${id}`} className="group inline-flex items-center gap-2 text-on-surface-variant hover:text-primary font-semibold text-sm transition-colors mb-6">
+        <span className="material-symbols-outlined text-lg group-hover:-translate-x-1 transition-transform">arrow_back</span>
+        Back to recipe
+      </Link>
       <RecipeForm initialData={initialData} recipeId={id} mode="edit" />
     </div>
   );

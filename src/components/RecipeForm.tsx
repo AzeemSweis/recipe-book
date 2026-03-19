@@ -32,9 +32,12 @@ interface Props {
   mode: 'create' | 'edit'
 }
 
+const CATEGORIES = ['Breakfast', 'Lunch', 'Dinner', 'Dessert', 'Snack', 'Appetizer', 'Beverage', 'Other']
+
 const emptyIngredient = (): IngredientRow => ({ amount: '', unit: '', name: '' })
-const inputCls = "w-full bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl px-4 py-2.5 text-sm text-zinc-900 dark:text-zinc-200 outline-none focus:border-rose-400 dark:focus:border-rose-500 focus:ring-2 focus:ring-rose-500/20 transition-all"
-const smallInputCls = "bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-lg px-3 py-2 text-sm text-zinc-900 dark:text-zinc-200 outline-none focus:border-rose-400 dark:focus:border-rose-500 focus:ring-2 focus:ring-rose-500/20 transition-all"
+
+const inputCls = "w-full bg-surface dark:bg-surface-dark border border-outline-variant dark:border-outline-variant/30 rounded-xl px-4 py-2.5 text-sm text-on-surface placeholder-on-surface-variant/50 outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all"
+const labelCls = "block text-[11px] font-extrabold uppercase tracking-widest text-on-surface-variant mb-2"
 
 export default function RecipeForm({ initialData, recipeId, mode }: Props) {
   const router = useRouter()
@@ -51,6 +54,7 @@ export default function RecipeForm({ initialData, recipeId, mode }: Props) {
   const [tags, setTags] = useState(initialData?.tags || '')
   const [notes, setNotes] = useState(initialData?.notes || '')
   const [image, setImage] = useState(initialData?.image || '')
+  const [imageError, setImageError] = useState(false)
   const [sourceUrl, setSourceUrl] = useState(initialData?.sourceUrl || '')
 
   const [ingredients, setIngredients] = useState<IngredientRow[]>(
@@ -127,160 +131,293 @@ export default function RecipeForm({ initialData, recipeId, mode }: Props) {
   }
 
   return (
-    <div className="max-w-2xl mx-auto">
-      <h1 className="text-3xl font-bold tracking-tight mb-2">
-        {mode === 'edit' ? 'Edit Recipe' : 'Add Recipe'}
-      </h1>
-      <p className="text-zinc-500 dark:text-zinc-400 mb-8 text-lg">
-        {mode === 'edit' ? 'Update your recipe details' : 'Create a new recipe from scratch'}
-      </p>
-
-      <div className="space-y-6">
-        {/* Title & Description */}
-        <div>
-          <label className="text-xs font-medium text-zinc-500 dark:text-zinc-500 mb-1.5 block">Title *</label>
-          <input value={title} onChange={e => setTitle(e.target.value)} className={inputCls} placeholder="Recipe name" />
+    <div className="max-w-4xl mx-auto px-4 md:px-10 py-8 pb-16">
+      {/* Header */}
+      <header className="mb-10">
+        <div className="flex items-center gap-3 mb-2">
+          <span className="material-symbols-outlined text-primary text-2xl">
+            {mode === 'edit' ? 'edit' : 'auto_awesome'}
+          </span>
+          <h1 className="text-3xl font-extrabold tracking-tight text-on-surface">
+            {mode === 'edit' ? 'Edit Recipe' : 'Create New Masterpiece'}
+          </h1>
         </div>
-        <div>
-          <label className="text-xs font-medium text-zinc-500 dark:text-zinc-500 mb-1.5 block">Description</label>
-          <textarea value={description} onChange={e => setDescription(e.target.value)} className={`${inputCls} h-20`} placeholder="A brief description of the recipe..." />
-        </div>
+        <p className="text-on-surface-variant">
+          {mode === 'edit' ? 'Update your recipe details below.' : 'Document your culinary creation for future cooks.'}
+        </p>
+      </header>
 
-        {/* Meta grid */}
-        <div className="grid grid-cols-2 gap-4">
-          <div>
-            <label className="text-xs font-medium text-zinc-500 dark:text-zinc-500 mb-1.5 block">Servings</label>
-            <input value={servings} onChange={e => setServings(e.target.value)} className={inputCls} placeholder="4" />
-          </div>
-          <div>
-            <label className="text-xs font-medium text-zinc-500 dark:text-zinc-500 mb-1.5 block">Cuisine</label>
-            <input value={cuisine} onChange={e => setCuisine(e.target.value)} className={inputCls} placeholder="Italian" />
-          </div>
-          <div>
-            <label className="text-xs font-medium text-zinc-500 dark:text-zinc-500 mb-1.5 block">Prep Time</label>
-            <input value={prepTime} onChange={e => setPrepTime(e.target.value)} className={inputCls} placeholder="15m" />
-          </div>
-          <div>
-            <label className="text-xs font-medium text-zinc-500 dark:text-zinc-500 mb-1.5 block">Cook Time</label>
-            <input value={cookTime} onChange={e => setCookTime(e.target.value)} className={inputCls} placeholder="30m" />
-          </div>
-          <div>
-            <label className="text-xs font-medium text-zinc-500 dark:text-zinc-500 mb-1.5 block">Total Time</label>
-            <input value={totalTime} onChange={e => setTotalTime(e.target.value)} className={inputCls} placeholder="45m" />
-          </div>
-          <div>
-            <label className="text-xs font-medium text-zinc-500 dark:text-zinc-500 mb-1.5 block">Category</label>
-            <input value={category} onChange={e => setCategory(e.target.value)} className={inputCls} placeholder="Dinner" />
-          </div>
-        </div>
-
-        <div>
-          <label className="text-xs font-medium text-zinc-500 dark:text-zinc-500 mb-1.5 block">Tags (comma-separated)</label>
-          <input value={tags} onChange={e => setTags(e.target.value)} className={inputCls} placeholder="dinner, quick, healthy" />
-        </div>
-
-        {/* Ingredients */}
-        <div>
-          <label className="text-xs font-medium text-zinc-500 dark:text-zinc-500 mb-3 block">🥘 Ingredients</label>
-          <div className="space-y-2">
-            {ingredients.map((ing, i) => (
-              <div key={i} className="flex gap-2 items-center">
-                <input
-                  value={ing.amount}
-                  onChange={e => updateIngredient(i, 'amount', e.target.value)}
-                  className={`${smallInputCls} w-20`}
-                  placeholder="Amt"
+      <div className="space-y-10">
+        {/* Hero image section */}
+        <section>
+          <label className={labelCls}>Recipe Image (URL)</label>
+          <input
+            value={image}
+            onChange={e => { setImage(e.target.value); setImageError(false) }}
+            className={inputCls}
+            placeholder="https://example.com/image.jpg"
+          />
+          {image ? (
+            !imageError ? (
+              <div className="mt-4 aspect-video w-full rounded-xl overflow-hidden border border-outline-variant/50 shadow-sm">
+                <img
+                  key={image}
+                  src={image}
+                  alt="Recipe preview"
+                  className="w-full h-full object-cover"
+                  onError={() => setImageError(true)}
                 />
-                <input
-                  value={ing.unit}
-                  onChange={e => updateIngredient(i, 'unit', e.target.value)}
-                  className={`${smallInputCls} w-20`}
-                  placeholder="Unit"
-                />
-                <input
-                  value={ing.name}
-                  onChange={e => updateIngredient(i, 'name', e.target.value)}
-                  className={`${smallInputCls} flex-1`}
-                  placeholder="Ingredient name"
-                />
-                {ingredients.length > 1 && (
-                  <button
-                    onClick={() => removeIngredient(i)}
-                    className="text-zinc-400 hover:text-rose-500 transition-colors text-sm px-1"
-                    title="Remove"
-                  >
-                    ✕
-                  </button>
-                )}
               </div>
-            ))}
-          </div>
-          <button
-            onClick={addIngredient}
-            className="mt-2 text-xs text-rose-500 hover:text-rose-400 font-medium transition-colors"
-          >
-            + Add ingredient
-          </button>
-        </div>
+            ) : null
+          ) : (
+            <div className="mt-4 aspect-video w-full rounded-xl bg-surface dark:bg-surface-dark border-2 border-dashed border-outline-variant flex flex-col items-center justify-center text-on-surface-variant/50">
+              <span className="material-symbols-outlined text-4xl mb-2">add_photo_alternate</span>
+              <p className="text-sm font-medium">Paste an image URL above to preview</p>
+              <p className="text-xs mt-1 uppercase tracking-wide font-bold">Recommended: 16:9 ratio</p>
+            </div>
+          )}
+        </section>
 
-        {/* Instructions */}
-        <div>
-          <label className="text-xs font-medium text-zinc-500 dark:text-zinc-500 mb-3 block">📝 Instructions</label>
-          <div className="space-y-2">
-            {instructions.map((step, i) => (
-              <div key={i} className="flex gap-2 items-start">
-                <span className="text-rose-500 dark:text-rose-400 font-bold text-sm min-w-[1.5rem] pt-2.5">{i + 1}</span>
-                <textarea
-                  value={step}
-                  onChange={e => updateInstruction(i, e.target.value)}
-                  className={`${smallInputCls} flex-1 min-h-[2.5rem] resize-y`}
-                  placeholder={`Step ${i + 1}...`}
-                  rows={2}
-                />
-                {instructions.length > 1 && (
-                  <button
-                    onClick={() => removeInstruction(i)}
-                    className="text-zinc-400 hover:text-rose-500 transition-colors text-sm px-1 pt-2.5"
-                    title="Remove"
-                  >
-                    ✕
-                  </button>
-                )}
-              </div>
-            ))}
-          </div>
-          <button
-            onClick={addInstruction}
-            className="mt-2 text-xs text-rose-500 hover:text-rose-400 font-medium transition-colors"
-          >
-            + Add step
-          </button>
-        </div>
-
-        {/* Notes, Image, Source */}
-        <div>
-          <label className="text-xs font-medium text-zinc-500 dark:text-zinc-500 mb-1.5 block">Notes</label>
-          <textarea value={notes} onChange={e => setNotes(e.target.value)} className={`${inputCls} h-20`} placeholder="Optional notes..." />
-        </div>
-        <div className="grid grid-cols-2 gap-4">
-          <div>
-            <label className="text-xs font-medium text-zinc-500 dark:text-zinc-500 mb-1.5 block">Image URL</label>
-            <input value={image} onChange={e => setImage(e.target.value)} className={inputCls} placeholder="https://..." />
+        {/* Basic info */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="md:col-span-2">
+            <label className={labelCls}>Recipe Title *</label>
+            <input
+              value={title}
+              onChange={e => setTitle(e.target.value)}
+              className={`${inputCls} text-lg font-semibold`}
+              placeholder="e.g. Herb Roasted Chicken"
+            />
           </div>
           <div>
-            <label className="text-xs font-medium text-zinc-500 dark:text-zinc-500 mb-1.5 block">Source URL</label>
-            <input value={sourceUrl} onChange={e => setSourceUrl(e.target.value)} className={inputCls} placeholder="https://..." />
+            <label className={labelCls}>Category</label>
+            <select
+              value={category}
+              onChange={e => setCategory(e.target.value)}
+              className={`${inputCls} appearance-none`}
+            >
+              <option value="">Select category...</option>
+              {CATEGORIES.map(cat => (
+                <option key={cat} value={cat}>{cat}</option>
+              ))}
+            </select>
           </div>
         </div>
 
-        {/* Submit */}
-        <button
-          onClick={handleSubmit}
-          disabled={loading || !title.trim()}
-          className="bg-rose-500 hover:bg-rose-600 disabled:bg-zinc-300 dark:disabled:bg-zinc-700 text-white px-6 py-3.5 rounded-2xl text-sm font-semibold transition-all hover:shadow-lg hover:shadow-rose-500/25 w-full"
-        >
-          {loading ? 'Saving...' : mode === 'edit' ? 'Update Recipe' : 'Save Recipe'}
-        </button>
+        {/* Description */}
+        <div>
+          <label className={labelCls}>Description</label>
+          <textarea
+            value={description}
+            onChange={e => setDescription(e.target.value)}
+            className={`${inputCls} resize-none`}
+            placeholder="Describe the soul of this dish..."
+            rows={3}
+          />
+        </div>
+
+        {/* Stats bar: Prep / Cook / Serves */}
+        <div className="grid grid-cols-3 gap-0 bg-surface dark:bg-surface-dark border border-outline-variant rounded-xl overflow-hidden">
+          <div className="text-center px-4 py-3">
+            <span className="block text-[10px] font-extrabold text-on-surface-variant uppercase tracking-wider mb-1">Prep Time</span>
+            <input
+              value={prepTime}
+              onChange={e => setPrepTime(e.target.value)}
+              className="w-full bg-transparent border-none text-center font-bold text-on-surface outline-none focus:ring-0 p-0 text-sm placeholder-on-surface-variant/40"
+              placeholder="15m"
+            />
+          </div>
+          <div className="text-center px-4 py-3 border-x border-outline-variant">
+            <span className="block text-[10px] font-extrabold text-on-surface-variant uppercase tracking-wider mb-1">Cook Time</span>
+            <input
+              value={cookTime}
+              onChange={e => setCookTime(e.target.value)}
+              className="w-full bg-transparent border-none text-center font-bold text-on-surface outline-none focus:ring-0 p-0 text-sm placeholder-on-surface-variant/40"
+              placeholder="45m"
+            />
+          </div>
+          <div className="text-center px-4 py-3">
+            <span className="block text-[10px] font-extrabold text-on-surface-variant uppercase tracking-wider mb-1">Serves</span>
+            <input
+              value={servings}
+              onChange={e => setServings(e.target.value)}
+              className="w-full bg-transparent border-none text-center font-bold text-on-surface outline-none focus:ring-0 p-0 text-sm placeholder-on-surface-variant/40"
+              placeholder="4"
+            />
+          </div>
+        </div>
+
+        {/* Extra fields: Total Time, Cuisine, Tags */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div>
+            <label className={labelCls}>Total Time</label>
+            <input
+              value={totalTime}
+              onChange={e => setTotalTime(e.target.value)}
+              className={inputCls}
+              placeholder="1h"
+            />
+          </div>
+          <div>
+            <label className={labelCls}>Cuisine</label>
+            <input
+              value={cuisine}
+              onChange={e => setCuisine(e.target.value)}
+              className={inputCls}
+              placeholder="Italian"
+            />
+          </div>
+          <div>
+            <label className={labelCls}>Tags (comma-separated)</label>
+            <input
+              value={tags}
+              onChange={e => setTags(e.target.value)}
+              className={inputCls}
+              placeholder="dinner, quick, healthy"
+            />
+          </div>
+        </div>
+
+        {/* Ingredients & Instructions two-column */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          {/* Ingredients */}
+          <section className="bg-surface dark:bg-surface-dark p-6 rounded-xl border border-outline-variant/50 shadow-sm space-y-4">
+            <div className="flex items-center justify-between">
+              <label className={labelCls + ' mb-0'}>Ingredients</label>
+              <button
+                type="button"
+                onClick={addIngredient}
+                className="text-primary hover:bg-primary/5 p-1 rounded-full transition-colors"
+                aria-label="Add ingredient"
+              >
+                <span className="material-symbols-outlined text-2xl">add_circle</span>
+              </button>
+            </div>
+            <div className="space-y-3">
+              {ingredients.map((ing, i) => (
+                <div key={i} className="flex gap-2 items-center">
+                  <input
+                    value={ing.amount}
+                    onChange={e => updateIngredient(i, 'amount', e.target.value)}
+                    className="w-16 bg-background dark:bg-background-dark border border-outline-variant/50 rounded-lg px-2 py-2 text-sm text-on-surface outline-none focus:border-primary focus:ring-1 focus:ring-primary/20"
+                    placeholder="Amt"
+                  />
+                  <input
+                    value={ing.unit}
+                    onChange={e => updateIngredient(i, 'unit', e.target.value)}
+                    className="w-16 bg-background dark:bg-background-dark border border-outline-variant/50 rounded-lg px-2 py-2 text-sm text-on-surface outline-none focus:border-primary focus:ring-1 focus:ring-primary/20"
+                    placeholder="Unit"
+                  />
+                  <input
+                    value={ing.name}
+                    onChange={e => updateIngredient(i, 'name', e.target.value)}
+                    className="flex-1 bg-background dark:bg-background-dark border border-outline-variant/50 rounded-lg px-2 py-2 text-sm text-on-surface outline-none focus:border-primary focus:ring-1 focus:ring-primary/20"
+                    placeholder="Ingredient name"
+                  />
+                  {ingredients.length > 1 && (
+                    <button
+                      type="button"
+                      onClick={() => removeIngredient(i)}
+                      className="text-error hover:text-error/80 transition-colors shrink-0"
+                      aria-label="Remove ingredient"
+                    >
+                      <span className="material-symbols-outlined text-xl">remove_circle</span>
+                    </button>
+                  )}
+                </div>
+              ))}
+            </div>
+          </section>
+
+          {/* Instructions */}
+          <section className="bg-surface dark:bg-surface-dark p-6 rounded-xl border border-outline-variant/50 shadow-sm space-y-4">
+            <div className="flex items-center justify-between">
+              <label className={labelCls + ' mb-0'}>Instructions</label>
+              <button
+                type="button"
+                onClick={addInstruction}
+                className="text-primary hover:bg-primary/5 p-1 rounded-full transition-colors"
+                aria-label="Add instruction step"
+              >
+                <span className="material-symbols-outlined text-2xl">add_circle</span>
+              </button>
+            </div>
+            <div className="space-y-4">
+              {instructions.map((step, i) => (
+                <div key={i} className="flex gap-3 items-start">
+                  <span className="flex-none w-6 h-6 rounded-full bg-primary text-white text-[10px] flex items-center justify-center font-bold mt-2">
+                    {i + 1}
+                  </span>
+                  <textarea
+                    value={step}
+                    onChange={e => updateInstruction(i, e.target.value)}
+                    className="flex-1 bg-background dark:bg-background-dark border border-outline-variant/50 rounded-lg px-3 py-2 text-sm text-on-surface outline-none focus:border-primary focus:ring-1 focus:ring-primary/20 resize-none"
+                    placeholder={`Step ${i + 1}...`}
+                    rows={2}
+                  />
+                  {instructions.length > 1 && (
+                    <button
+                      type="button"
+                      onClick={() => removeInstruction(i)}
+                      className="text-error hover:text-error/80 transition-colors shrink-0 mt-2"
+                      aria-label="Remove step"
+                    >
+                      <span className="material-symbols-outlined text-xl">remove_circle</span>
+                    </button>
+                  )}
+                </div>
+              ))}
+            </div>
+          </section>
+        </div>
+
+        {/* Notes */}
+        <div>
+          <label className={labelCls}>
+            <span className="material-symbols-outlined text-sm align-middle mr-1">note</span>
+            Chef&apos;s Notes
+          </label>
+          <textarea
+            value={notes}
+            onChange={e => setNotes(e.target.value)}
+            className={`${inputCls} resize-none`}
+            placeholder="Optional tips, variations, or memories..."
+            rows={3}
+          />
+        </div>
+
+        {/* Source URL */}
+        <div>
+          <label className={labelCls}>
+            <span className="material-symbols-outlined text-sm align-middle mr-1">link</span>
+            Source URL
+          </label>
+          <input
+            value={sourceUrl}
+            onChange={e => setSourceUrl(e.target.value)}
+            className={inputCls}
+            placeholder="https://original-recipe-website.com/..."
+          />
+        </div>
+
+        {/* Footer actions */}
+        <footer className="flex items-center justify-between pt-6 border-t border-outline-variant/30">
+          <button
+            type="button"
+            onClick={() => router.back()}
+            className="px-6 py-3 rounded-xl text-on-surface-variant font-semibold hover:bg-outline-variant/20 transition-all"
+          >
+            Discard
+          </button>
+          <button
+            type="button"
+            onClick={handleSubmit}
+            disabled={loading || !title.trim()}
+            className="px-10 py-3 rounded-xl bg-primary hover:bg-primary/90 disabled:bg-outline-variant disabled:text-on-surface-variant text-white font-bold shadow-lg shadow-primary/20 hover:scale-[1.02] active:scale-[0.98] transition-all"
+          >
+            {loading ? 'Saving...' : mode === 'edit' ? 'Update Recipe' : 'Save Recipe'}
+          </button>
+        </footer>
       </div>
     </div>
   )

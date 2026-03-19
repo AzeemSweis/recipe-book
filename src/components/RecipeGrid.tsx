@@ -47,58 +47,51 @@ export default function RecipeGrid({ recipes }: { recipes: Recipe[] }) {
   return (
     <div>
       {/* Search bar */}
-      <div className="relative mb-6">
-        <svg
-          className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-zinc-400"
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={2}
-            d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-          />
-        </svg>
+      <div className="relative mb-5 group">
+        <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none">
+          <span className="material-symbols-outlined text-on-surface-variant group-focus-within:text-primary transition-colors text-xl">
+            search
+          </span>
+        </div>
         <input
           type="text"
           placeholder="Search recipes, ingredients, cuisines..."
           value={search}
           onChange={(e) => setSearch(e.target.value)}
-          className="w-full pl-11 pr-4 py-3 rounded-2xl bg-zinc-100 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 text-sm text-zinc-900 dark:text-zinc-100 placeholder-zinc-400 dark:placeholder-zinc-600 focus:outline-none focus:ring-2 focus:ring-rose-500/40 focus:border-rose-500 transition-all"
+          className="w-full pl-11 pr-10 py-3 rounded-xl bg-surface dark:bg-surface-dark border border-outline-variant/50 dark:border-outline-variant/30 text-sm text-on-surface placeholder-on-surface-variant/60 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all shadow-sm"
         />
         {search && (
           <button
             onClick={() => setSearch("")}
-            className="absolute right-4 top-1/2 -translate-y-1/2 text-zinc-400 hover:text-zinc-600 dark:hover:text-zinc-300 text-sm"
+            className="absolute right-3 top-1/2 -translate-y-1/2 text-on-surface-variant hover:text-on-surface transition-colors"
+            aria-label="Clear search"
           >
-            ✕
+            <span className="material-symbols-outlined text-lg">close</span>
           </button>
         )}
       </div>
 
-      {/* Tags */}
+      {/* Tag filter chips */}
       {allTags.length > 0 && (
-        <div className="flex flex-wrap gap-2 mb-8">
+        <div className="flex items-center gap-2 overflow-x-auto pb-2 mb-6 flex-nowrap">
           <button
             onClick={() => setActiveTag(null)}
-            className={`text-xs px-3.5 py-1.5 rounded-full font-medium transition-all ${
+            className={`px-4 py-1.5 rounded-full text-sm font-semibold whitespace-nowrap transition-all shrink-0 ${
               activeTag === null
-                ? "bg-rose-500 text-white shadow-sm"
-                : "bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400 hover:bg-zinc-200 dark:hover:bg-zinc-700"
+                ? "bg-primary text-white shadow-sm shadow-primary/20"
+                : "bg-primary-container text-on-surface hover:bg-primary/10"
             }`}
           >
-            All
+            All Recipes
           </button>
           {allTags.map((tag) => (
             <button
               key={tag}
               onClick={() => setActiveTag(activeTag === tag ? null : tag)}
-              className={`text-xs px-3.5 py-1.5 rounded-full font-medium transition-all ${
+              className={`px-4 py-1.5 rounded-full text-sm font-medium whitespace-nowrap transition-all shrink-0 ${
                 activeTag === tag
-                  ? "bg-rose-500 text-white shadow-sm"
-                  : "bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400 hover:bg-zinc-200 dark:hover:bg-zinc-700"
+                  ? "bg-primary text-white shadow-sm shadow-primary/20"
+                  : "bg-surface dark:bg-surface-dark border border-outline-variant/50 text-on-surface-variant hover:border-primary transition-colors"
               }`}
             >
               {tag}
@@ -109,30 +102,39 @@ export default function RecipeGrid({ recipes }: { recipes: Recipe[] }) {
 
       {/* Results count */}
       {(search || activeTag) && (
-        <p className="text-sm text-zinc-500 dark:text-zinc-400 mb-4">
+        <p className="text-sm text-on-surface-variant mb-4">
           {filtered.length} recipe{filtered.length !== 1 ? "s" : ""} found
-          {activeTag && <span> in <span className="text-rose-500 font-medium">{activeTag}</span></span>}
-          {search && <span> matching &ldquo;<span className="text-zinc-700 dark:text-zinc-300">{search}</span>&rdquo;</span>}
+          {activeTag && (
+            <span>
+              {" "}in{" "}
+              <span className="text-primary font-medium">{activeTag}</span>
+            </span>
+          )}
+          {search && (
+            <span>
+              {" "}matching &ldquo;<span className="text-on-surface">{search}</span>&rdquo;
+            </span>
+          )}
         </p>
       )}
 
-      {/* Grid */}
+      {/* Grid or Empty State */}
       {filtered.length === 0 ? (
-        <div className="text-center py-16">
-          <p className="text-4xl mb-4">🔍</p>
-          <p className="text-zinc-500 dark:text-zinc-400 mb-1">No recipes match your search</p>
+        <div className="text-center py-20">
+          <span className="material-symbols-outlined text-6xl text-on-surface-variant/30 mb-4 block">search</span>
+          <p className="text-on-surface-variant mb-1 text-base">No recipes match your search</p>
           <button
             onClick={() => {
               setSearch("");
               setActiveTag(null);
             }}
-            className="text-sm text-rose-500 hover:text-rose-600 font-medium mt-2 transition-colors"
+            className="text-sm text-primary hover:text-primary/80 font-medium mt-2 transition-colors"
           >
             Clear filters
           </button>
         </div>
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {filtered.map((r) => (
             <RecipeCard key={r.id} recipe={r} />
           ))}
