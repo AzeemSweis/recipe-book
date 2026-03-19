@@ -20,17 +20,7 @@ export default async function HomePage() {
   if (user) {
     return (
       <div className="relative">
-        <div className="max-w-7xl mx-auto px-4 md:px-10 py-8">
-          {/* Page header */}
-          <div className="mb-8">
-            <h1 className="text-3xl font-bold text-on-surface tracking-tight">
-              Your Recipes
-            </h1>
-            <p className="text-on-surface-variant mt-1">
-              {recipes.length} recipe{recipes.length !== 1 ? "s" : ""} saved
-            </p>
-          </div>
-
+        <div className="max-w-7xl mx-auto px-4 md:px-10 py-6">
           {recipes.length === 0 ? (
             <div className="text-center py-24">
               <span className="material-symbols-outlined text-6xl text-on-surface-variant/30 mb-4 block">

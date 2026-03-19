@@ -6,26 +6,24 @@ import RecipeCard from "./RecipeCard";
 
 export default function RecipeGrid({ recipes }: { recipes: Recipe[] }) {
   const [search, setSearch] = useState("");
-  const [activeTag, setActiveTag] = useState<string | null>(null);
+  const [activeCategory, setActiveCategory] = useState<string | null>(null);
 
-  // Collect all unique tags sorted by frequency
-  const allTags = useMemo(() => {
-    const counts: Record<string, number> = {};
-    recipes.forEach((r) =>
-      r.tags.forEach((t) => {
-        counts[t] = (counts[t] || 0) + 1;
-      })
-    );
-    return Object.entries(counts)
-      .sort((a, b) => b[1] - a[1])
-      .map(([tag]) => tag);
+  const CATEGORIES = [
+    "Breakfast", "Lunch", "Dinner", "Appetizer",
+    "Dessert", "Snack", "Beverage", "Main Course", "Side Dish",
+  ];
+
+  // Only show categories that have at least one recipe
+  const availableCategories = useMemo(() => {
+    const found = new Set(recipes.map(r => r.category).filter(Boolean));
+    return CATEGORIES.filter(c => found.has(c));
   }, [recipes]);
 
   const filtered = useMemo(() => {
     let result = recipes;
 
-    if (activeTag) {
-      result = result.filter((r) => r.tags.includes(activeTag));
+    if (activeCategory) {
+      result = result.filter((r) => r.category === activeCategory);
     }
 
     if (search.trim()) {
@@ -42,23 +40,23 @@ export default function RecipeGrid({ recipes }: { recipes: Recipe[] }) {
     }
 
     return result;
-  }, [recipes, search, activeTag]);
+  }, [recipes, search, activeCategory]);
 
   return (
     <div>
-      {/* Search bar */}
+      {/* Search bar — Stitch-style prominent placement */}
       <div className="relative mb-5 group">
-        <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none">
-          <span className="material-symbols-outlined text-on-surface-variant group-focus-within:text-primary transition-colors text-xl">
+        <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+          <span className="material-symbols-outlined text-on-surface-variant group-focus-within:text-primary transition-colors">
             search
           </span>
         </div>
         <input
           type="text"
-          placeholder="Search recipes, ingredients, cuisines..."
+          placeholder="Search recipes, ingredients, or cuisines..."
           value={search}
           onChange={(e) => setSearch(e.target.value)}
-          className="w-full pl-11 pr-10 py-3 rounded-xl bg-surface dark:bg-surface-dark border border-outline-variant/50 dark:border-outline-variant/30 text-sm text-on-surface placeholder-on-surface-variant/60 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all shadow-sm"
+          className="w-full pl-12 pr-10 py-3.5 rounded-xl bg-primary/5 dark:bg-primary/10 border-transparent focus:border-primary focus:ring-0 text-sm text-on-surface dark:text-on-surface-dark placeholder-on-surface-variant/50 dark:placeholder-on-surface-variant-dark/50 transition-all"
         />
         {search && (
           <button
@@ -71,43 +69,43 @@ export default function RecipeGrid({ recipes }: { recipes: Recipe[] }) {
         )}
       </div>
 
-      {/* Tag filter chips */}
-      {allTags.length > 0 && (
+      {/* Category filter chips */}
+      {availableCategories.length > 0 && (
         <div className="flex items-center gap-2 overflow-x-auto pb-2 mb-6 flex-nowrap">
           <button
-            onClick={() => setActiveTag(null)}
+            onClick={() => setActiveCategory(null)}
             className={`px-4 py-1.5 rounded-full text-sm font-semibold whitespace-nowrap transition-all shrink-0 ${
-              activeTag === null
+              activeCategory === null
                 ? "bg-primary text-white shadow-sm shadow-primary/20"
                 : "bg-primary-container text-on-surface hover:bg-primary/10"
             }`}
           >
             All Recipes
           </button>
-          {allTags.map((tag) => (
+          {availableCategories.map((cat) => (
             <button
-              key={tag}
-              onClick={() => setActiveTag(activeTag === tag ? null : tag)}
+              key={cat}
+              onClick={() => setActiveCategory(activeCategory === cat ? null : cat)}
               className={`px-4 py-1.5 rounded-full text-sm font-medium whitespace-nowrap transition-all shrink-0 ${
-                activeTag === tag
+                activeCategory === cat
                   ? "bg-primary text-white shadow-sm shadow-primary/20"
                   : "bg-surface dark:bg-surface-dark border border-outline-variant/50 text-on-surface-variant hover:border-primary transition-colors"
               }`}
             >
-              {tag}
+              {cat}
             </button>
           ))}
         </div>
       )}
 
       {/* Results count */}
-      {(search || activeTag) && (
+      {(search || activeCategory) && (
         <p className="text-sm text-on-surface-variant mb-4">
           {filtered.length} recipe{filtered.length !== 1 ? "s" : ""} found
-          {activeTag && (
+          {activeCategory && (
             <span>
               {" "}in{" "}
-              <span className="text-primary font-medium">{activeTag}</span>
+              <span className="text-primary font-medium">{activeCategory}</span>
             </span>
           )}
           {search && (
@@ -126,7 +124,7 @@ export default function RecipeGrid({ recipes }: { recipes: Recipe[] }) {
           <button
             onClick={() => {
               setSearch("");
-              setActiveTag(null);
+              setActiveCategory(null);
             }}
             className="text-sm text-primary hover:text-primary/80 font-medium mt-2 transition-colors"
           >

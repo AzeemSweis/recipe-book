@@ -29,10 +29,14 @@ export default function IngredientList({ ingredients }: Props) {
       {ingredients.map((ing, i) => {
         const isChecked = checked.has(i)
         const measure = [ing.amount, ing.unit].filter(Boolean).join(' ')
+        // Combine name + notes into a single display string
+        const displayName = ing.notes
+          ? `${ing.name} (${ing.notes})`
+          : ing.name
         return (
           <li key={i}>
             <label
-              className={`flex items-start py-3 text-sm gap-3 cursor-pointer select-none hover:bg-primary/5 rounded-lg px-2 -mx-2 transition-colors ${
+              className={`flex items-center py-3 text-sm gap-3 cursor-pointer select-none hover:bg-primary/5 rounded-lg px-2 -mx-2 transition-colors ${
                 isChecked ? 'opacity-50' : ''
               }`}
             >
@@ -40,24 +44,25 @@ export default function IngredientList({ ingredients }: Props) {
                 type="checkbox"
                 checked={isChecked}
                 onChange={() => toggle(i)}
-                className="w-4 h-4 mt-0.5 shrink-0 accent-primary rounded border-outline-variant self-center"
+                className="w-4 h-4 shrink-0 accent-primary rounded border-outline-variant"
               />
-              <span
-                className={`shrink-0 w-20 text-right text-primary font-semibold ${
-                  isChecked ? 'line-through decoration-primary/40' : ''
-                }`}
-              >
-                {measure || '•'}
-              </span>
-              <span
-                className={`text-on-surface leading-relaxed ${
-                  isChecked ? 'line-through decoration-on-surface-variant/40' : ''
-                }`}
-              >
-                {ing.name}
-                {ing.notes && (
-                  <span className="text-on-surface-variant text-xs ml-1">({ing.notes})</span>
+              <span className="leading-relaxed">
+                {measure && (
+                  <span
+                    className={`text-primary font-semibold mr-1.5 ${
+                      isChecked ? 'line-through decoration-primary/40' : ''
+                    }`}
+                  >
+                    {measure}
+                  </span>
                 )}
+                <span
+                  className={`text-on-surface dark:text-on-surface-dark ${
+                    isChecked ? 'line-through decoration-on-surface-variant/40' : ''
+                  }`}
+                >
+                  {displayName}
+                </span>
               </span>
             </label>
           </li>

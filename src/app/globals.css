@@ -4,12 +4,15 @@
   --color-primary: #f5a30a;
   --color-primary-container: #ffedd5;
   --color-background: #f8f7f5;
-  --color-background-dark: #221c10;
+  --color-background-dark: #1a1510;
   --color-surface: #ffffff;
-  --color-surface-dark: #2a2318;
+  --color-surface-dark: #262016;
   --color-on-surface: #0f172a;
+  --color-on-surface-dark: #f1efe9;
   --color-on-surface-variant: #64748b;
+  --color-on-surface-variant-dark: #a8a29e;
   --color-outline-variant: #cbd5e1;
+  --color-outline-variant-dark: #44403c;
   --color-error: #ef4444;
   --color-tertiary: #0ea5e9;
   --color-secondary: #475569;
@@ -26,6 +29,13 @@
     vertical-align: middle;
   }
 }
+
+/* Dark mode text overrides — the @theme tokens are static, so we override here */
+.dark .text-on-surface { color: var(--color-on-surface-dark); }
+.dark .text-on-surface-variant { color: var(--color-on-surface-variant-dark); }
+.dark .border-outline-variant\/30 { border-color: var(--color-outline-variant-dark); }
+.dark .border-outline-variant\/50 { border-color: color-mix(in srgb, var(--color-outline-variant-dark) 80%, transparent); }
+.dark .divide-outline-variant\/20 > :not(:last-child) { border-color: color-mix(in srgb, var(--color-outline-variant-dark) 50%, transparent); }
 
 /* Force color-scheme so Safari respects our theme for native elements */
 html.dark { color-scheme: dark; }
