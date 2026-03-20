@@ -3,6 +3,7 @@ import { getRecipes } from "@/lib/storage";
 import Link from "next/link";
 import { Recipe } from "@/lib/types";
 import RecipeGrid from "@/components/RecipeGrid";
+import SpeedDial from "@/components/SpeedDial";
 
 export const dynamic = "force-dynamic";
 
@@ -60,17 +61,8 @@ export default async function HomePage() {
           )}
         </div>
 
-        {/* Floating Action Button */}
-        <Link
-          href="/add"
-          className="fixed bottom-8 right-8 w-14 h-14 bg-primary hover:bg-primary/90 text-white rounded-full shadow-2xl shadow-primary/30 hover:scale-110 active:scale-95 transition-all duration-300 flex items-center justify-center z-50 group"
-          aria-label="Add recipe"
-        >
-          <span className="material-symbols-outlined text-2xl">add</span>
-          <span className="absolute right-full mr-4 px-3 py-1 bg-on-surface text-surface text-xs rounded-lg opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">
-            Add Recipe
-          </span>
-        </Link>
+        {/* Speed Dial FAB — Import URL + Add Manually */}
+        <SpeedDial />
       </div>
     );
   }

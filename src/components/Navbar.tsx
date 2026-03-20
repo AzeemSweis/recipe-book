@@ -22,13 +22,6 @@ export default function Navbar() {
         <div className="flex items-center gap-3">
           {!isLoaded ? null : isSignedIn ? (
             <>
-              <Link
-                href="/import"
-                className="hidden sm:flex items-center gap-1.5 text-sm font-medium text-on-surface-variant hover:text-primary transition-colors px-3 py-2"
-              >
-                <span className="material-symbols-outlined text-lg">link</span>
-                Import
-              </Link>
               <ThemeToggle />
               <UserButton afterSignOutUrl="/" />
             </>
