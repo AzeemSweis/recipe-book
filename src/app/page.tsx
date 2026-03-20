@@ -6,7 +6,17 @@ import RecipeGrid from "@/components/RecipeGrid";
 
 export const dynamic = "force-dynamic";
 
+const HERO_IMAGES = [
+  { src: "photo-1504674900247-0877df9cc836", alt: "Overhead view of colorful Thai herb dishes", label: "Thai Herb Salad Bowl" },
+  { src: "photo-1490645935967-10de6ba17061", alt: "Fresh breakfast bowl with avocado and eggs on rustic table", label: "Spring Breakfast Bowl" },
+  { src: "photo-1547592180-85f173990554", alt: "Vibrant couscous bowl with roasted vegetables", label: "Roasted Veggie Couscous" },
+  { src: "photo-1498837167922-ddd27525d352", alt: "Colorful fresh ingredients in white bowls overhead", label: "Fresh Garden Ingredients" },
+  { src: "photo-1543353071-873f17a7a088", alt: "Mexican-inspired dishes with black beans and lime", label: "Mexican Fiesta Bowls" },
+  { src: "photo-1414235077428-338989a2e8c0", alt: "Elegant plated dinner with wine glasses", label: "Date Night Dinner" },
+];
+
 export default async function HomePage() {
+  const heroImage = HERO_IMAGES[Math.floor(Math.random() * HERO_IMAGES.length)];
   const user = await currentUser();
   let recipes: Recipe[] = [];
 
@@ -108,8 +118,8 @@ export default async function HomePage() {
               <div className="absolute -inset-4 bg-primary/20 rounded-[2.5rem] blur-2xl group-hover:bg-primary/30 transition-all duration-500" />
               <div className="relative rounded-2xl overflow-hidden border-8 border-surface dark:border-surface-dark shadow-2xl rotate-2 group-hover:rotate-0 transition-transform duration-500 aspect-[4/5]">
                 <img
-                  src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=800&q=80&auto=format&fit=crop"
-                  alt="Beautiful overhead view of colorful home-cooked dishes"
+                  src={`https://images.unsplash.com/${heroImage.src}?w=800&q=80&auto=format&fit=crop`}
+                  alt={heroImage.alt}
                   className="w-full h-full object-cover"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
@@ -117,7 +127,7 @@ export default async function HomePage() {
                   <div className="flex items-center justify-between text-white">
                     <div>
                       <p className="text-xs font-medium uppercase tracking-widest opacity-80">Now Cooking</p>
-                      <h3 className="text-lg font-bold">Thai Herb Salad Bowl</h3>
+                      <h3 className="text-lg font-bold">{heroImage.label}</h3>
                     </div>
                     <div className="bg-primary text-white p-2 rounded-full">
                       <span className="material-symbols-outlined">timer</span>
