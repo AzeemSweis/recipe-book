@@ -44,7 +44,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             rel="stylesheet"
           />
         </head>
-        <body className="bg-background dark:bg-background-dark text-on-surface dark:text-on-surface-dark min-h-screen transition-colors duration-300">
+        <body className="bg-background dark:bg-background-dark text-on-surface min-h-screen transition-colors duration-300">
           <ThemeProvider>
             <Navbar />
             <main className="min-h-screen">

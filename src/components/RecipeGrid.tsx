@@ -56,7 +56,7 @@ export default function RecipeGrid({ recipes }: { recipes: Recipe[] }) {
           placeholder="Search recipes, ingredients, or cuisines..."
           value={search}
           onChange={(e) => setSearch(e.target.value)}
-          className="w-full pl-12 pr-10 py-3.5 rounded-xl bg-primary/5 dark:bg-primary/10 border-transparent focus:border-primary focus:ring-0 text-sm text-on-surface dark:text-on-surface-dark placeholder-on-surface-variant/50 dark:placeholder-on-surface-variant-dark/50 transition-all"
+          className="w-full pl-12 pr-10 py-3.5 rounded-xl bg-primary/5 dark:bg-primary/10 border-transparent focus:border-primary focus:ring-0 text-sm text-on-surface placeholder-on-surface-variant/50 transition-all"
         />
         {search && (
           <button

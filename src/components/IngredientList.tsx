@@ -57,7 +57,7 @@ export default function IngredientList({ ingredients }: Props) {
                   </span>
                 )}
                 <span
-                  className={`text-on-surface dark:text-on-surface-dark ${
+                  className={`text-on-surface  ${
                     isChecked ? 'line-through decoration-on-surface-variant/40' : ''
                   }`}
                 >

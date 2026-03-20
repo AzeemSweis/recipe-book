@@ -20,7 +20,7 @@ export function RecipeCard({ recipe }: { recipe: Recipe }) {
   return (
     <Link
       href={`/recipe/${recipe.id}`}
-      className="group block bg-surface dark:bg-surface-dark rounded-xl overflow-hidden shadow-sm hover:shadow-lg border border-outline-variant/50 dark:border-outline-variant-dark/50 transition-all duration-300"
+      className="group block bg-surface dark:bg-surface-dark rounded-xl overflow-hidden shadow-sm hover:shadow-lg border border-outline-variant/50 transition-all duration-300"
     >
       {/* Image area */}
       <div className="relative aspect-video overflow-hidden">
@@ -33,7 +33,7 @@ export function RecipeCard({ recipe }: { recipe: Recipe }) {
           />
         ) : (
           <div className={`w-full h-full flex items-center justify-center bg-gradient-to-br ${fallback.gradient}`}>
-            <span className="material-symbols-outlined text-6xl text-on-surface-variant/25 dark:text-on-surface-variant-dark/30 group-hover:scale-110 transition-transform duration-500">
+            <span className="material-symbols-outlined text-6xl text-on-surface-variant/25 group-hover:scale-110 transition-transform duration-500">
               {fallback.icon}
             </span>
           </div>

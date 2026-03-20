@@ -8,11 +8,8 @@
   --color-surface: #ffffff;
   --color-surface-dark: #262016;
   --color-on-surface: #0f172a;
-  --color-on-surface-dark: #f1efe9;
   --color-on-surface-variant: #64748b;
-  --color-on-surface-variant-dark: #a8a29e;
   --color-outline-variant: #cbd5e1;
-  --color-outline-variant-dark: #44403c;
   --color-error: #ef4444;
   --color-tertiary: #0ea5e9;
   --color-secondary: #475569;
@@ -28,14 +25,15 @@
     font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
     vertical-align: middle;
   }
-}
 
-/* Dark mode text overrides — the @theme tokens are static, so we override here */
-.dark .text-on-surface { color: var(--color-on-surface-dark); }
-.dark .text-on-surface-variant { color: var(--color-on-surface-variant-dark); }
-.dark .border-outline-variant\/30 { border-color: var(--color-outline-variant-dark); }
-.dark .border-outline-variant\/50 { border-color: color-mix(in srgb, var(--color-outline-variant-dark) 80%, transparent); }
-.dark .divide-outline-variant\/20 > :not(:last-child) { border-color: color-mix(in srgb, var(--color-outline-variant-dark) 50%, transparent); }
+  /* Dark mode: override the CSS custom properties so all utilities auto-adapt */
+  .dark {
+    --color-on-surface: #f1efe9;
+    --color-on-surface-variant: #a8a29e;
+    --color-outline-variant: #44403c;
+    --color-primary-container: #3d2e0a;
+  }
+}
 
 /* Force color-scheme so Safari respects our theme for native elements */
 html.dark { color-scheme: dark; }
