@@ -102,14 +102,27 @@ export default async function HomePage() {
             </div>
           </div>
 
-          {/* Right: illustration */}
+          {/* Right: hero image */}
           <div className="order-1 lg:order-2">
             <div className="relative group">
               <div className="absolute -inset-4 bg-primary/20 rounded-[2.5rem] blur-2xl group-hover:bg-primary/30 transition-all duration-500" />
-              <div className="relative rounded-2xl overflow-hidden border-8 border-surface dark:border-surface-dark shadow-2xl rotate-2 group-hover:rotate-0 transition-transform duration-500 bg-primary-container aspect-[4/5] flex items-center justify-center">
-                <div className="text-center px-8">
-                  <span className="material-symbols-outlined text-[8rem] text-primary/30">restaurant_menu</span>
-                  <p className="text-on-surface-variant text-sm font-medium mt-4">Your recipe collection</p>
+              <div className="relative rounded-2xl overflow-hidden border-8 border-surface dark:border-surface-dark shadow-2xl rotate-2 group-hover:rotate-0 transition-transform duration-500 aspect-[4/5]">
+                <img
+                  src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=800&q=80&auto=format&fit=crop"
+                  alt="Beautiful overhead view of colorful home-cooked dishes"
+                  className="w-full h-full object-cover"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
+                <div className="absolute bottom-6 left-6 right-6 p-4 bg-white/10 backdrop-blur-md rounded-xl border border-white/20">
+                  <div className="flex items-center justify-between text-white">
+                    <div>
+                      <p className="text-xs font-medium uppercase tracking-widest opacity-80">Now Cooking</p>
+                      <h3 className="text-lg font-bold">Thai Herb Salad Bowl</h3>
+                    </div>
+                    <div className="bg-primary text-white p-2 rounded-full">
+                      <span className="material-symbols-outlined">timer</span>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
