@@ -28,6 +28,7 @@
 
   /* Dark mode: override the CSS custom properties so all utilities auto-adapt */
   .dark {
+    --color-surface: #262016;
     --color-on-surface: #f1efe9;
     --color-on-surface-variant: #a8a29e;
     --color-outline-variant: #44403c;
