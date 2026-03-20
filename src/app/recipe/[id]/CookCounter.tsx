@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import { useRouter } from 'next/navigation'
 
 interface Props {
   id: string
@@ -10,6 +11,7 @@ interface Props {
 export default function CookCounter({ id, timesMade }: Props) {
   const [count, setCount] = useState(timesMade)
   const [isLoading, setIsLoading] = useState(false)
+  const router = useRouter()
 
   const increment = async () => {
     setIsLoading(true)
@@ -22,7 +24,8 @@ export default function CookCounter({ id, timesMade }: Props) {
       if (!response.ok) {
         throw new Error('Failed to update')
       }
-    } catch (error) {
+      router.refresh()
+    } catch {
       setCount(prev)
       alert('Failed to update cook count.')
     } finally {
@@ -30,20 +33,14 @@ export default function CookCounter({ id, timesMade }: Props) {
     }
   }
 
-  const label = count === 0 ? 'Not yet cooked' : `Cooked ${count} time${count === 1 ? '' : 's'}`
-
   return (
-    <div className="flex items-center gap-3 bg-zinc-100 dark:bg-zinc-800/60 px-4 py-2.5 rounded-xl mb-8 border border-zinc-200/50 dark:border-zinc-700/50">
-      <span className="text-sm text-zinc-600 dark:text-zinc-400">
-        <span className="text-zinc-400 dark:text-zinc-600 font-medium">Cooked:</span> {label}
-      </span>
-      <button
-        onClick={increment}
-        disabled={isLoading}
-        className="px-3 py-1.5 bg-rose-500 hover:bg-rose-600 text-white text-xs font-medium rounded-xl transition-all disabled:opacity-50 disabled:cursor-not-allowed shadow-sm hover:shadow-rose-500/25"
-      >
-        {isLoading ? '...' : 'I made this! 🍳'}
-      </button>
-    </div>
+    <button
+      onClick={increment}
+      disabled={isLoading}
+      className="flex-1 md:flex-none flex items-center justify-center gap-2 px-8 h-12 rounded-xl bg-primary hover:bg-primary/90 text-white font-bold transition-all shadow-md shadow-primary/20 disabled:opacity-50 disabled:cursor-not-allowed"
+    >
+      <span className="material-symbols-outlined text-xl">skillet</span>
+      <span>{isLoading ? 'Saving...' : 'I made this!'}</span>
+    </button>
   )
 }

@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Recipe Book - Your Personal Digital Cookbook</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              colors: {
+                "primary": "#f5a30a",
+                "background-light": "#f8f7f5",
+                "background-dark": "#221c10",
+              },
+              fontFamily: {
+                "display": ["Inter", "sans-serif"]
+              },
+              borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+            },
+          },
+        }
+      </script>
+<style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .sticky-nav {
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            backdrop-filter: blur(8px);
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 font-display transition-colors duration-300">
+<div class="relative flex min-h-screen w-full flex-col overflow-x-hidden">
+<header class="sticky-nav w-full border-b border-primary/10 bg-background-light/90 dark:bg-background-dark/90 px-6 lg:px-20 py-4 flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="flex items-center justify-center bg-primary rounded-lg p-1.5 text-background-light">
+<span class="material-symbols-outlined text-2xl">restaurant_menu</span>
+</div>
+<h2 class="text-slate-900 dark:text-slate-100 text-xl font-bold tracking-tight">Recipe Book</h2>
+</div>
+<nav class="hidden md:flex items-center gap-8">
+<a class="text-sm font-medium hover:text-primary transition-colors" href="#features">Features</a>
+<a class="text-sm font-medium hover:text-primary transition-colors" href="#">Pricing</a>
+<a class="text-sm font-medium hover:text-primary transition-colors" href="#">Community</a>
+</nav>
+<div class="flex items-center gap-3">
+<button class="hidden sm:flex px-5 py-2 text-sm font-bold text-slate-700 dark:text-slate-300 hover:text-primary transition-colors">
+                    Sign In
+                </button>
+<button class="bg-primary hover:bg-primary/90 text-background-dark px-6 py-2.5 rounded-lg text-sm font-bold shadow-sm transition-all transform hover:scale-[1.02]">
+                    Sign Up
+                </button>
+</div>
+</header>
+<main class="flex-1">
+<section class="max-w-[1280px] mx-auto px-6 lg:px-20 py-12 lg:py-24">
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+<div class="flex flex-col gap-8 order-2 lg:order-1">
+<div class="flex flex-col gap-4">
+<span class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-bold uppercase tracking-wider w-fit">
+<span class="material-symbols-outlined text-sm">auto_awesome</span>
+                                Your Personal Kitchen Assistant
+                            </span>
+<h1 class="text-slate-900 dark:text-white text-5xl lg:text-7xl font-black leading-[1.1] tracking-tight">
+                                Your recipes, all in <span class="text-primary">one place.</span>
+</h1>
+<p class="text-slate-600 dark:text-slate-400 text-lg lg:text-xl leading-relaxed max-w-[540px]">
+                                Save, organize, and cook from your personal collection. No more messy bookmarks or lost index cards.
+                            </p>
+</div>
+<div class="flex flex-col sm:flex-row gap-4">
+<button class="bg-primary hover:bg-primary/90 text-background-dark px-8 py-4 rounded-xl text-lg font-bold shadow-lg shadow-primary/20 transition-all transform hover:-translate-y-1">
+                                Get Started for Free
+                            </button>
+<button class="flex items-center justify-center gap-2 border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 px-8 py-4 rounded-xl text-lg font-bold hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors">
+<span class="material-symbols-outlined">play_circle</span>
+                                See how it works
+                            </button>
+</div>
+<div class="flex items-center gap-6 pt-4">
+<div class="flex -space-x-3">
+<div class="w-10 h-10 rounded-full border-2 border-background-light bg-slate-200 dark:bg-slate-700 overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="Portrait of a smiling home cook" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBXrpCQ76GP00FnS1vCr6K_sEaGq5hcPD3-5AEqQrfJOw0-tTRKOKtneO5zgJ31aVk9Q06ryXi7uGI2xFTzly6E1SuiyPq3uMyFhvoHuP2tVLazDeH9mKKgv9hPpsKVX4Yf-vwOCbECEFH7EiIH84pl5PZ3d0g4cFGnv05QwchIopNoUUaC4hS96xj6d7yQt6I220-GiMdt-wLgA2PR9gl7_Vkek5-I5n8J-4awuWMDbaWXDleJTqjylcShMTShs58ywECARs9Xk5xd"/>
+</div>
+<div class="w-10 h-10 rounded-full border-2 border-background-light bg-slate-200 dark:bg-slate-700 overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="Portrait of a professional chef" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDgP4W7yj64kQiXA79wUhQwW5Jc2eTHrljNPbXSFe_6LnurOB8v5v0NtKmtpTqFtXRPRXMrP2puUCa6Oh39dP_aLe3VTE6YZK8LKMzlq9GhBtkjeGMXWOGPpMZ4UEA6P0o1KOYpxwZ3vaOAkfsGmz9W6L3Sj5dsI3TZOajPEQ1yDno5cp2lXVjTWG0f4AZ5spMdrnA1Qlcz_U7FPbkwsjIrmddPhRDFiQw_utLuTcprSeTDXHV7RrMltUunR61zgPjWRwZv_gCFme4k"/>
+</div>
+<div class="w-10 h-10 rounded-full border-2 border-background-light bg-slate-200 dark:bg-slate-700 overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="Portrait of a young woman cooking" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD_Qvq9gKBBxY51vceCZGvUOc0l8ZxVM6gR3mz4gwFw5HCku37bWFImXZ7AhbYFwZbLxA9o8hr5sW9UVC0wNGuj2hEYlj8QgoYZMwVtgcFP-shc6VUs8zHLeSErtQlsbk3u1_oSHnihAy_eoBRbdvy6Gzc6ARUJ6bNMNrg0xJ3hRzoIe9wQO0iIwBpWTq4C7RbrjXK_YljrPpg1IKEIecPXlJsHowkGNZjmD9I2xFGBca-dfCrw5GAw-60quTCxP_Oug9GjH_mo9fIr"/>
+</div>
+</div>
+<p class="text-sm text-slate-500 dark:text-slate-400">
+                                Joined by <span class="font-bold text-slate-900 dark:text-slate-100">12,000+</span> food lovers
+                            </p>
+</div>
+</div>
+<div class="order-1 lg:order-2">
+<div class="relative group">
+<div class="absolute -inset-4 bg-primary/20 rounded-[2.5rem] blur-2xl group-hover:bg-primary/30 transition-all duration-500"></div>
+<div class="relative rounded-[2rem] overflow-hidden border-8 border-white dark:border-slate-800 shadow-2xl rotate-2 group-hover:rotate-0 transition-transform duration-500">
+<img class="w-full h-auto aspect-[4/5] object-cover" data-alt="Close up of a beautiful healthy home-cooked meal" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCVGnyVAY-9alPRcDVxkYlai2ynZjInBUX6QasOgeav_kfqy6M56IByCjt3JGkDpsOBGqYTxaw1OacPewGRp0RPaDNw7bPiCiK40XXixtfUYpt40ulWjlXiCbfQXK2NAuVD2RZAF-HLwL2d77p4Ik_pHCDAR-tvQL5LL36mrXWEmhV1BBlBC0JphlR2kU0_wT2rTmbiiMH7Ao3wV5umrUXAJoK2ltpGLHqJaJwK5n4bbS0aqEHAJ9ixbU61f1LW5RlZTfPyIgWRnNaB"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
+<div class="absolute bottom-6 left-6 right-6 p-6 bg-white/10 backdrop-blur-md rounded-2xl border border-white/20">
+<div class="flex items-center justify-between text-white">
+<div>
+<p class="text-xs font-medium uppercase tracking-widest opacity-80">Now Cooking</p>
+<h3 class="text-xl font-bold">Mediterranean Salmon Bowl</h3>
+</div>
+<div class="bg-primary text-background-dark p-2 rounded-full">
+<span class="material-symbols-outlined">timer</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section class="bg-slate-50 dark:bg-slate-900/50 py-24 px-6 lg:px-20" id="features">
+<div class="max-w-[1280px] mx-auto">
+<div class="flex flex-col gap-4 text-center mb-16">
+<h2 class="text-slate-900 dark:text-white text-3xl lg:text-4xl font-black tracking-tight">Simplify Your Cooking Experience</h2>
+<p class="text-slate-600 dark:text-slate-400 text-lg max-w-[700px] mx-auto">Everything you need to manage your personal recipe collection with ease. No clutter, just the tools you actually use.</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+<div class="bg-white dark:bg-slate-800 p-8 rounded-2xl border border-slate-100 dark:border-slate-700 shadow-sm hover:shadow-md transition-shadow group">
+<div class="size-14 bg-primary/10 rounded-xl flex items-center justify-center text-primary mb-6 group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-3xl">language</span>
+</div>
+<h3 class="text-slate-900 dark:text-white text-xl font-bold mb-3">Import from any website</h3>
+<p class="text-slate-600 dark:text-slate-400 leading-relaxed">
+                                Found a recipe on a blog or news site? Just paste the URL and we'll extract the ingredients and steps instantly.
+                            </p>
+</div>
+<div class="bg-white dark:bg-slate-800 p-8 rounded-2xl border border-slate-100 dark:border-slate-700 shadow-sm hover:shadow-md transition-shadow group">
+<div class="size-14 bg-primary/10 rounded-xl flex items-center justify-center text-primary mb-6 group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-3xl">label</span>
+</div>
+<h3 class="text-slate-900 dark:text-white text-xl font-bold mb-3">Organize with tags</h3>
+<p class="text-slate-600 dark:text-slate-400 leading-relaxed">
+                                Categorize your meals with custom tags. Filter by "Quick Dinners", "Gluten-Free", or "Kid-Friendly" in a single tap.
+                            </p>
+</div>
+<div class="bg-white dark:bg-slate-800 p-8 rounded-2xl border border-slate-100 dark:border-slate-700 shadow-sm hover:shadow-md transition-shadow group">
+<div class="size-14 bg-primary/10 rounded-xl flex items-center justify-center text-primary mb-6 group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-3xl">calendar_month</span>
+</div>
+<h3 class="text-slate-900 dark:text-white text-xl font-bold mb-3">Track what you cook</h3>
+<p class="text-slate-600 dark:text-slate-400 leading-relaxed">
+                                Keep a history of your culinary adventures. Add private notes on what you changed and how it turned out.
+                            </p>
+</div>
+</div>
+</div>
+</section>
+<section class="py-24 px-6 lg:px-20">
+<div class="max-w-[1280px] mx-auto bg-primary rounded-[3rem] p-12 lg:p-20 text-center overflow-hidden relative">
+<div class="absolute top-0 right-0 -translate-y-1/2 translate-x-1/4 opacity-10">
+<span class="material-symbols-outlined text-[20rem]">restaurant</span>
+</div>
+<div class="relative z-10 flex flex-col items-center gap-8">
+<h2 class="text-background-dark text-4xl lg:text-5xl font-black leading-tight max-w-[800px]">
+                            Ready to build your digital cookbook?
+                        </h2>
+<p class="text-background-dark/80 text-lg lg:text-xl font-medium max-w-[600px]">
+                            Join thousands of home cooks who have organized their kitchen life. Start your journey today for free.
+                        </p>
+<button class="bg-background-dark text-primary px-10 py-5 rounded-2xl text-xl font-bold shadow-2xl transition-all transform hover:scale-105 active:scale-95">
+                            Get Started for Free
+                        </button>
+</div>
+</div>
+</section>
+</main>
+<footer class="bg-background-light dark:bg-background-dark border-t border-slate-200 dark:border-slate-800 py-16 px-6 lg:px-20">
+<div class="max-w-[1280px] mx-auto">
+<div class="flex flex-col md:flex-row justify-between items-center gap-12 mb-12">
+<div class="flex flex-col items-center md:items-start gap-4">
+<div class="flex items-center gap-3">
+<div class="flex items-center justify-center bg-primary rounded-lg p-1.5 text-background-light">
+<span class="material-symbols-outlined text-2xl">restaurant_menu</span>
+</div>
+<h2 class="text-slate-900 dark:text-slate-100 text-xl font-bold tracking-tight">Recipe Book</h2>
+</div>
+<p class="text-slate-500 dark:text-slate-400 text-sm max-w-[300px] text-center md:text-left">
+                            Organizing the world's kitchens, one recipe at a time. A personal tool for home cooks.
+                        </p>
+</div>
+<div class="flex flex-wrap justify-center gap-x-12 gap-y-6">
+<a class="text-slate-600 dark:text-slate-400 hover:text-primary transition-colors font-medium" href="#">Features</a>
+<a class="text-slate-600 dark:text-slate-400 hover:text-primary transition-colors font-medium" href="#">Pricing</a>
+<a class="text-slate-600 dark:text-slate-400 hover:text-primary transition-colors font-medium" href="#">Privacy Policy</a>
+<a class="text-slate-600 dark:text-slate-400 hover:text-primary transition-colors font-medium" href="#">Terms of Service</a>
+</div>
+</div>
+<div class="flex flex-col md:flex-row justify-between items-center gap-6 pt-12 border-t border-slate-100 dark:border-slate-800">
+<p class="text-slate-400 dark:text-slate-500 text-sm">
+                        © 2024 Recipe Book. Made with <span class="text-red-500">♥</span> for home cooks.
+                    </p>
+<div class="flex gap-6">
+<a class="text-slate-400 hover:text-primary transition-colors" href="#">
+<svg class="w-5 h-5" fill="currentColor" viewbox="0 0 24 24"><path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z"></path></svg>
+</a>
+<a class="text-slate-400 hover:text-primary transition-colors" href="#">
+<svg class="w-5 h-5" fill="currentColor" viewbox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.669-.072-4.948-.2-4.358-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"></path></svg>
+</a>
+</div>
+</div>
+</div>
+</footer>
+</div>
+</body></html>

@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#f5a30a",
+                        "background-light": "#f8f7f5",
+                        "background-dark": "#221c10",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.5rem",
+                        "lg": "1rem",
+                        "xl": "1.5rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<title>Herb Roasted Chicken - RecipeApp</title>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100 antialiased">
+<div class="relative flex h-auto min-h-screen w-full flex-col group/design-root overflow-x-hidden">
+<div class="layout-container flex h-full grow flex-col">
+<!-- Top Navigation -->
+<header class="flex items-center justify-between border-b border-primary/10 px-6 md:px-20 py-4 bg-white dark:bg-slate-900/50 backdrop-blur-sm sticky top-0 z-50">
+<div class="flex items-center gap-3">
+<div class="size-8 bg-primary rounded-lg flex items-center justify-center text-white">
+<span class="material-symbols-outlined">restaurant_menu</span>
+</div>
+<h2 class="text-slate-900 dark:text-slate-100 text-xl font-bold leading-tight tracking-tight">RecipeApp</h2>
+</div>
+<div class="flex flex-1 justify-end gap-6 items-center">
+<nav class="hidden md:flex items-center gap-8">
+<a class="text-slate-600 dark:text-slate-400 text-sm font-medium hover:text-primary transition-colors" href="#">Recipes</a>
+<a class="text-slate-600 dark:text-slate-400 text-sm font-medium hover:text-primary transition-colors" href="#">Categories</a>
+<a class="text-slate-600 dark:text-slate-400 text-sm font-medium hover:text-primary transition-colors" href="#">Favorites</a>
+</nav>
+<button class="flex size-10 cursor-pointer items-center justify-center rounded-full bg-primary/10 text-primary hover:bg-primary/20 transition-all">
+<span class="material-symbols-outlined">person</span>
+</button>
+</div>
+</header>
+<main class="max-w-5xl mx-auto w-full px-4 md:px-10 py-6">
+<!-- Back Button -->
+<div class="mb-6">
+<button class="group flex items-center gap-2 text-slate-600 dark:text-slate-400 font-bold text-sm hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-lg group-hover:-translate-x-1 transition-transform">arrow_back</span>
+<span>Back to grid</span>
+</button>
+</div>
+<!-- Hero Section -->
+<div class="relative w-full aspect-video md:aspect-[21/9] rounded-xl overflow-hidden shadow-xl mb-8 group">
+<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="Golden brown herb roasted chicken on a platter" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB1REfBSAOuvpzyDP2esUKfb3Jn9dnBhh_AZMoPceb_RPdov1FDZGW_BgV_Lmx_EKcPsndCrV9ybwKGR8lEEgtzld6PKpVB4ybQJnkv_NSxaP3YierdnOhtLvpEO69c-S75AGRxG4PiuH0S_kfcsYMMZskesaoo_U_fAGymz5Sy75jkOOQWuZbV7Exm6DTbd1fqfdXpkLd7paJQNaXBPehV0AUr7otzu6rlyCxbHyAj9PN6c9d7K0gRJhcPeckf2YeSfTARKAeHablS"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent flex flex-col justify-end p-6 md:p-10">
+<h1 class="text-3xl md:text-5xl font-bold text-white mb-2 drop-shadow-md">Herb Roasted Chicken</h1>
+<div class="flex items-center gap-2 text-primary">
+<span class="material-symbols-outlined fill-1">star</span>
+<span class="material-symbols-outlined fill-1">star</span>
+<span class="material-symbols-outlined fill-1">star</span>
+<span class="material-symbols-outlined fill-1">star</span>
+<span class="material-symbols-outlined">star_half</span>
+<span class="text-white/90 text-sm font-medium ml-2">(128 reviews)</span>
+</div>
+</div>
+</div>
+<!-- Metadata Cards -->
+<div class="grid grid-cols-2 md:grid-cols-6 gap-3 md:gap-4 mb-8">
+<div class="flex flex-col gap-1 rounded-xl p-4 border border-primary/20 bg-white dark:bg-slate-900/40">
+<span class="text-slate-500 text-xs font-semibold uppercase tracking-wider">Prep</span>
+<span class="text-slate-900 dark:text-slate-100 text-lg font-bold">15m</span>
+</div>
+<div class="flex flex-col gap-1 rounded-xl p-4 border border-primary/20 bg-white dark:bg-slate-900/40">
+<span class="text-slate-500 text-xs font-semibold uppercase tracking-wider">Cook</span>
+<span class="text-slate-900 dark:text-slate-100 text-lg font-bold">45m</span>
+</div>
+<div class="flex flex-col gap-1 rounded-xl p-4 border border-primary/20 bg-white dark:bg-slate-900/40">
+<span class="text-slate-500 text-xs font-semibold uppercase tracking-wider">Total</span>
+<span class="text-slate-900 dark:text-slate-100 text-lg font-bold">1h</span>
+</div>
+<div class="flex flex-col gap-1 rounded-xl p-4 border border-primary/20 bg-white dark:bg-slate-900/40">
+<span class="text-slate-500 text-xs font-semibold uppercase tracking-wider">Serves</span>
+<span class="text-slate-900 dark:text-slate-100 text-lg font-bold">4</span>
+</div>
+<div class="flex flex-col gap-1 rounded-xl p-4 border border-primary/20 bg-white dark:bg-slate-900/40">
+<span class="text-slate-500 text-xs font-semibold uppercase tracking-wider">Cuisine</span>
+<span class="text-slate-900 dark:text-slate-100 text-lg font-bold">American</span>
+</div>
+<div class="flex flex-col gap-1 rounded-xl p-4 border border-primary/20 bg-white dark:bg-slate-900/40">
+<span class="text-slate-500 text-xs font-semibold uppercase tracking-wider">Made</span>
+<span class="text-slate-900 dark:text-slate-100 text-lg font-bold">12 times</span>
+</div>
+</div>
+<!-- Action Bar -->
+<div class="flex flex-wrap items-center gap-4 mb-12 pb-8 border-b border-primary/10">
+<button class="flex-1 md:flex-none flex items-center justify-center gap-2 px-8 h-12 rounded-xl bg-primary text-slate-900 font-bold hover:brightness-110 transition-all shadow-lg shadow-primary/20">
+<span class="material-symbols-outlined">check_circle</span>
+<span>I made this!</span>
+</button>
+<button class="flex-1 md:flex-none flex items-center justify-center gap-2 px-8 h-12 rounded-xl border-2 border-primary/30 text-slate-700 dark:text-slate-300 font-bold hover:bg-primary/5 transition-all">
+<span class="material-symbols-outlined text-lg">edit</span>
+<span>Edit</span>
+</button>
+<button class="flex-1 md:flex-none flex items-center justify-center gap-2 px-8 h-12 rounded-xl text-red-500 font-bold hover:bg-red-50 dark:hover:bg-red-900/20 transition-all">
+<span class="material-symbols-outlined text-lg">delete</span>
+<span>Delete</span>
+</button>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-12">
+<!-- Ingredients Section -->
+<div class="lg:col-span-1">
+<div class="flex items-center gap-3 mb-6">
+<span class="material-symbols-outlined text-primary">shopping_basket</span>
+<h3 class="text-2xl font-bold">Ingredients</h3>
+</div>
+<ul class="space-y-4">
+<li class="flex items-start gap-3 p-3 rounded-lg hover:bg-primary/5 transition-colors cursor-pointer group">
+<input class="mt-1 size-5 rounded border-slate-300 text-primary focus:ring-primary" type="checkbox"/>
+<span class="text-slate-700 dark:text-slate-300 leading-relaxed"><span class="font-bold">1</span> whole chicken (approx. 4 lbs)</span>
+</li>
+<li class="flex items-start gap-3 p-3 rounded-lg hover:bg-primary/5 transition-colors cursor-pointer group">
+<input class="mt-1 size-5 rounded border-slate-300 text-primary focus:ring-primary" type="checkbox"/>
+<span class="text-slate-700 dark:text-slate-300 leading-relaxed"><span class="font-bold">3 tbsp</span> extra virgin olive oil</span>
+</li>
+<li class="flex items-start gap-3 p-3 rounded-lg hover:bg-primary/5 transition-colors cursor-pointer group">
+<input class="mt-1 size-5 rounded border-slate-300 text-primary focus:ring-primary" type="checkbox"/>
+<span class="text-slate-700 dark:text-slate-300 leading-relaxed"><span class="font-bold">4 cloves</span> garlic, smashed</span>
+</li>
+<li class="flex items-start gap-3 p-3 rounded-lg hover:bg-primary/5 transition-colors cursor-pointer group">
+<input class="mt-1 size-5 rounded border-slate-300 text-primary focus:ring-primary" type="checkbox"/>
+<span class="text-slate-700 dark:text-slate-300 leading-relaxed"><span class="font-bold">2 tbsp</span> fresh rosemary, chopped</span>
+</li>
+<li class="flex items-start gap-3 p-3 rounded-lg hover:bg-primary/5 transition-colors cursor-pointer group">
+<input class="mt-1 size-5 rounded border-slate-300 text-primary focus:ring-primary" type="checkbox"/>
+<span class="text-slate-700 dark:text-slate-300 leading-relaxed"><span class="font-bold">1 tsp</span> sea salt</span>
+</li>
+<li class="flex items-start gap-3 p-3 rounded-lg hover:bg-primary/5 transition-colors cursor-pointer group">
+<input class="mt-1 size-5 rounded border-slate-300 text-primary focus:ring-primary" type="checkbox"/>
+<span class="text-slate-700 dark:text-slate-300 leading-relaxed"><span class="font-bold">1/2 tsp</span> cracked black pepper</span>
+</li>
+<li class="flex items-start gap-3 p-3 rounded-lg hover:bg-primary/5 transition-colors cursor-pointer group">
+<input class="mt-1 size-5 rounded border-slate-300 text-primary focus:ring-primary" type="checkbox"/>
+<span class="text-slate-700 dark:text-slate-300 leading-relaxed"><span class="font-bold">1</span> lemon, halved</span>
+</li>
+</ul>
+</div>
+<!-- Instructions Section -->
+<div class="lg:col-span-2">
+<div class="flex items-center gap-3 mb-6">
+<span class="material-symbols-outlined text-primary">grocery</span>
+<h3 class="text-2xl font-bold">Instructions</h3>
+</div>
+<div class="space-y-8">
+<div class="flex gap-6">
+<span class="flex-none size-10 rounded-full bg-primary/20 text-primary flex items-center justify-center font-bold text-lg">1</span>
+<div class="pt-1">
+<h4 class="font-bold mb-2 text-lg">Preheat oven</h4>
+<p class="text-slate-600 dark:text-slate-400 leading-relaxed">Preheat your oven to 425°F (220°C). Prepare a roasting pan with a rack or a large cast-iron skillet.</p>
+</div>
+</div>
+<div class="flex gap-6">
+<span class="flex-none size-10 rounded-full bg-primary/20 text-primary flex items-center justify-center font-bold text-lg">2</span>
+<div class="pt-1">
+<h4 class="font-bold mb-2 text-lg">Season chicken</h4>
+<p class="text-slate-600 dark:text-slate-400 leading-relaxed">Pat the chicken dry with paper towels. Rub olive oil all over the skin. Season generously with salt, pepper, and rosemary. Stuff the cavity with garlic cloves and lemon halves.</p>
+</div>
+</div>
+<div class="flex gap-6">
+<span class="flex-none size-10 rounded-full bg-primary/20 text-primary flex items-center justify-center font-bold text-lg">3</span>
+<div class="pt-1">
+<h4 class="font-bold mb-2 text-lg">Roast for 45 mins</h4>
+<p class="text-slate-600 dark:text-slate-400 leading-relaxed">Place chicken in the oven and roast until the skin is golden brown and the internal temperature reaches 165°F (74°C). Baste occasionally with pan juices.</p>
+</div>
+</div>
+<div class="flex gap-6">
+<span class="flex-none size-10 rounded-full bg-primary/20 text-primary flex items-center justify-center font-bold text-lg">4</span>
+<div class="pt-1">
+<h4 class="font-bold mb-2 text-lg">Rest and serve</h4>
+<p class="text-slate-600 dark:text-slate-400 leading-relaxed">Transfer to a cutting board and let the chicken rest for 15 minutes before carving to keep the juices locked in.</p>
+</div>
+</div>
+</div>
+<!-- Notes Section -->
+<div class="mt-12 p-6 rounded-xl bg-primary/5 border-l-4 border-primary">
+<div class="flex items-center gap-2 mb-3">
+<span class="material-symbols-outlined text-primary">lightbulb</span>
+<h4 class="font-bold text-primary">Chef's Notes</h4>
+</div>
+<p class="text-slate-700 dark:text-slate-300 italic">"Best served with roasted root vegetables and a crisp white wine. If you have extra time, let the seasoned chicken sit uncovered in the fridge for 2 hours for even crispier skin."</p>
+</div>
+<!-- Source Link -->
+<div class="mt-8 flex items-center justify-end gap-2 text-slate-500 text-sm">
+<span>Imported from</span>
+<a class="text-primary font-bold hover:underline" href="#">Tasty.com</a>
+<span class="material-symbols-outlined text-xs">open_in_new</span>
+</div>
+</div>
+</div>
+</main>
+<!-- Footer -->
+<footer class="mt-20 py-10 border-t border-primary/10 bg-white dark:bg-slate-900/50">
+<div class="max-w-5xl mx-auto px-6 text-center">
+<p class="text-slate-500 text-sm">© 2024 RecipeApp. Made with love for home cooks everywhere.</p>
+</div>
+</footer>
+</div>
+</div>
+</body></html>

@@ -1,36 +1,132 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Recipe Book
 
-## Getting Started
+Personal recipe management web app with import, search, and cook tracking.
 
-First, run the development server:
+## Quick Start
+
+```bash
+git clone https://github.com/asweis/recipe-book.git
+cd recipe-book
+npm install
+cp .env.example .env.local
+npm run dev
+```
+
+Open [http://localhost:3000](http://localhost:3000).
+
+## What It Does
+
+Recipe Book is a full-stack web app for managing your personal recipes. Import recipes from any website, organize them with tags, track what you've cooked, and view detailed recipe cards with ingredients, instructions, and metadata. Features dual authentication (Clerk for web, Firebase for iOS app) and real-time recipe storage via Redis.
+
+## Development
+
+### Prerequisites
+
+- Node.js 20+
+- npm or yarn
+
+### Setup
+
+```bash
+git clone https://github.com/asweis/recipe-book.git
+cd recipe-book
+npm install
+```
+
+### Environment Variables
+
+Copy `.env.example` to `.env.local` and fill in your credentials:
+
+```bash
+cp .env.example .env.local
+```
+
+Required variables:
+- `NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY` — Clerk auth public key
+- `CLERK_SECRET_KEY` — Clerk auth secret
+- `UPSTASH_REDIS_REST_URL` — Redis database URL
+- `UPSTASH_REDIS_REST_TOKEN` — Redis authentication token
+
+Optional variables (iOS Firebase auth):
+- `FIREBASE_PROJECT_ID`
+- `FIREBASE_PRIVATE_KEY`
+- `FIREBASE_CLIENT_EMAIL`
+
+### Running
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Server starts at [http://localhost:3000](http://localhost:3000). Changes auto-reload.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Building
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+npm run build
+npm start
+```
 
-## Learn More
+## Features
 
-To learn more about Next.js, take a look at the following resources:
+- **Recipe CRUD** — Create, read, update, delete recipes with full metadata
+- **Import from URL** — Intelligent parsing of recipes from any website
+- **Search & Filter** — Full-text search, organize by tags and categories
+- **Cook Counter** — Track how many times you've made each recipe
+- **Dark Mode** — Complete light/dark theme support
+- **Responsive Design** — Mobile, tablet, and desktop layouts
+- **Dual Auth** — Clerk for web app, Firebase Admin for iOS companion app
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Tech Stack
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- **Framework** — Next.js 16 + React 19
+- **Styling** — Tailwind CSS 4 with custom Material Design 3 color tokens
+- **Auth** — Clerk (web) + Firebase Admin (iOS)
+- **Storage** — Upstash Redis (serverless)
+- **Icons** — Material Symbols Outlined via Google Fonts CDN
 
-## Deploy on Vercel
+## Project Structure
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```
+src/
+  app/
+    api/               # Next.js API routes (recipe CRUD, import, cook counter)
+    recipe/            # Recipe detail page and edit flow
+    import/            # URL import page
+    add/               # Create recipe page
+    sign-in/           # Clerk auth UI
+    sign-up/           # Clerk auth UI
+    page.tsx           # Home: landing page (unauthed) or recipe grid (authed)
+    layout.tsx         # Root layout with Navbar and theme provider
+    globals.css        # Tailwind + design tokens
+  components/
+    Navbar.tsx         # Sticky top navigation bar
+    RecipeGrid.tsx     # Recipe list with search and filters
+    RecipeCard.tsx     # Individual recipe card with metadata
+    RecipeForm.tsx     # Create/edit recipe form with image preview
+    IngredientList.tsx # Ingredient checklist component
+    ThemeToggle.tsx    # Light/dark mode switcher
+    ThemeProvider.tsx  # Next.js theme context provider
+  lib/
+    auth.ts            # Dual auth helpers (Clerk + Firebase)
+    storage.ts         # Redis storage layer
+    parser.ts          # Recipe URL parser
+    types.ts           # TypeScript types for Recipe, Ingredient, etc.
+middleware.ts          # Auth middleware for protected routes
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Configuration
+
+All configuration via environment variables (see Setup section). No additional config files needed.
+
+## Deployment
+
+Build for production:
+
+```bash
+npm run build
+```
+
+Deploy the `.next` build artifact to any Node.js hosting (Vercel, Railway, etc.).
+
+For environment variables, set them in your hosting platform's environment config and reference the `.env.example` file.

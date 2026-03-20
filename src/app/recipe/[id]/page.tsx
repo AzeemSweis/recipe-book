@@ -25,83 +25,183 @@ export default async function RecipePage({ params }: Props) {
     notFound();
   }
 
-  return (
-    <div className="max-w-3xl mx-auto">
-      <Link href="/" className="text-sm text-zinc-500 hover:text-rose-500 dark:hover:text-rose-400 mb-6 inline-block transition-colors">← Back to recipes</Link>
+  const totalTimeMins = recipe.prepTime && recipe.cookTime
+    ? `${recipe.prepTime} + ${recipe.cookTime}`
+    : recipe.totalTime || null;
 
-      {recipe.image && (
-        <div className="rounded-2xl overflow-hidden mb-8 max-h-80">
-          <img src={recipe.image} alt={recipe.title} className="w-full object-cover" />
+  return (
+    <div className="max-w-5xl mx-auto px-4 md:px-10 py-8 pb-16">
+      {/* Back button */}
+      <div className="mb-6">
+        <Link
+          href="/"
+          className="group inline-flex items-center gap-2 text-on-surface-variant hover:text-primary font-semibold text-sm transition-colors"
+        >
+          <span className="material-symbols-outlined text-lg group-hover:-translate-x-1 transition-transform">
+            arrow_back
+          </span>
+          Back to recipes
+        </Link>
+      </div>
+
+      {/* Hero image */}
+      {recipe.image ? (
+        <div className="relative w-full aspect-video md:aspect-[21/9] rounded-2xl overflow-hidden shadow-xl mb-8 group">
+          <img
+            src={recipe.image}
+            alt={recipe.title}
+            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent flex flex-col justify-end p-6 md:p-10">
+            <h1 className="text-3xl md:text-5xl font-bold text-white mb-2 drop-shadow-md">
+              {recipe.title}
+            </h1>
+            {recipe.description && (
+              <p className="text-white/80 text-base md:text-lg max-w-2xl">{recipe.description}</p>
+            )}
+          </div>
+        </div>
+      ) : (
+        <div className="mb-8">
+          <div className="w-full bg-primary-container rounded-2xl px-8 py-10 mb-4">
+            <h1 className="text-3xl md:text-4xl font-bold text-on-surface tracking-tight">
+              {recipe.title}
+            </h1>
+            {recipe.description && (
+              <p className="text-on-surface-variant text-lg mt-3 max-w-2xl">{recipe.description}</p>
+            )}
+          </div>
         </div>
       )}
 
-      <h1 className="text-3xl sm:text-4xl font-bold tracking-tight mb-3">{recipe.title}</h1>
-      {recipe.description && <p className="text-zinc-500 dark:text-zinc-400 text-lg mb-6">{recipe.description}</p>}
-
-      {/* Meta info */}
-      <div className="flex flex-wrap gap-4 text-sm text-zinc-600 dark:text-zinc-400 mb-8">
-        {recipe.prepTime && <div className="bg-zinc-100 dark:bg-zinc-800/60 px-3 py-1.5 rounded-xl"><span className="text-zinc-400 dark:text-zinc-600">Prep:</span> {recipe.prepTime}</div>}
-        {recipe.cookTime && <div className="bg-zinc-100 dark:bg-zinc-800/60 px-3 py-1.5 rounded-xl"><span className="text-zinc-400 dark:text-zinc-600">Cook:</span> {recipe.cookTime}</div>}
-        {recipe.totalTime && <div className="bg-zinc-100 dark:bg-zinc-800/60 px-3 py-1.5 rounded-xl"><span className="text-zinc-400 dark:text-zinc-600">Total:</span> {recipe.totalTime}</div>}
-        {recipe.servings && <div className="bg-zinc-100 dark:bg-zinc-800/60 px-3 py-1.5 rounded-xl"><span className="text-zinc-400 dark:text-zinc-600">Servings:</span> {recipe.servings}</div>}
-        {recipe.cuisine && <div className="bg-zinc-100 dark:bg-zinc-800/60 px-3 py-1.5 rounded-xl"><span className="text-zinc-400 dark:text-zinc-600">Cuisine:</span> {recipe.cuisine}</div>}
-        {recipe.category && <div className="bg-zinc-100 dark:bg-zinc-800/60 px-3 py-1.5 rounded-xl"><span className="text-zinc-400 dark:text-zinc-600">Category:</span> {recipe.category}</div>}
+      {/* Metadata cards */}
+      <div className="grid grid-cols-2 md:grid-cols-6 gap-3 mb-8">
+        {recipe.prepTime && (
+          <div className="flex flex-col items-center gap-1 bg-surface dark:bg-surface-dark rounded-xl p-4 text-center border border-outline-variant/50">
+            <span className="material-symbols-outlined text-primary text-xl">timer</span>
+            <span className="text-on-surface-variant text-xs font-semibold uppercase tracking-wider">Prep</span>
+            <span className="text-on-surface font-bold">{recipe.prepTime}</span>
+          </div>
+        )}
+        {recipe.cookTime && (
+          <div className="flex flex-col items-center gap-1 bg-surface dark:bg-surface-dark rounded-xl p-4 text-center border border-outline-variant/50">
+            <span className="material-symbols-outlined text-primary text-xl">skillet</span>
+            <span className="text-on-surface-variant text-xs font-semibold uppercase tracking-wider">Cook</span>
+            <span className="text-on-surface font-bold">{recipe.cookTime}</span>
+          </div>
+        )}
+        {(recipe.totalTime || totalTimeMins) && (
+          <div className="flex flex-col items-center gap-1 bg-surface dark:bg-surface-dark rounded-xl p-4 text-center border border-outline-variant/50">
+            <span className="material-symbols-outlined text-primary text-xl">schedule</span>
+            <span className="text-on-surface-variant text-xs font-semibold uppercase tracking-wider">Total</span>
+            <span className="text-on-surface font-bold">{recipe.totalTime || totalTimeMins}</span>
+          </div>
+        )}
+        {recipe.servings && (
+          <div className="flex flex-col items-center gap-1 bg-surface dark:bg-surface-dark rounded-xl p-4 text-center border border-outline-variant/50">
+            <span className="material-symbols-outlined text-primary text-xl">groups</span>
+            <span className="text-on-surface-variant text-xs font-semibold uppercase tracking-wider">Serves</span>
+            <span className="text-on-surface font-bold">{recipe.servings}</span>
+          </div>
+        )}
+        {recipe.cuisine && (
+          <div className="flex flex-col items-center gap-1 bg-surface dark:bg-surface-dark rounded-xl p-4 text-center border border-outline-variant/50">
+            <span className="material-symbols-outlined text-primary text-xl">public</span>
+            <span className="text-on-surface-variant text-xs font-semibold uppercase tracking-wider">Cuisine</span>
+            <span className="text-on-surface font-bold">{recipe.cuisine}</span>
+          </div>
+        )}
+        {recipe.timesMade > 0 && (
+          <div className="flex flex-col items-center gap-1 bg-primary-container rounded-xl p-4 text-center border border-primary/20">
+            <span className="material-symbols-outlined text-primary text-xl">skillet</span>
+            <span className="text-on-surface-variant text-xs font-semibold uppercase tracking-wider">Made</span>
+            <span className="text-on-surface font-bold">{recipe.timesMade}x</span>
+          </div>
+        )}
       </div>
 
-      <CookCounter id={recipe.id} timesMade={recipe.timesMade} />
+      {/* Action bar */}
+      <div className="flex flex-wrap items-center gap-3 mb-10 pb-8 border-b border-outline-variant/30">
+        <CookCounter id={recipe.id} timesMade={recipe.timesMade} />
+        <EditButton id={recipe.id} />
+        <DeleteButton id={recipe.id} />
+      </div>
 
+      {/* Tags */}
       {recipe.tags.length > 0 && (
         <div className="flex flex-wrap gap-2 mb-8">
           {recipe.tags.map((t) => (
-            <span key={t} className="text-xs px-3 py-1 bg-rose-50 dark:bg-rose-500/10 rounded-full text-rose-600 dark:text-rose-400 font-medium">{t}</span>
+            <span
+              key={t}
+              className="text-xs px-3 py-1 bg-primary-container text-primary rounded-full font-medium"
+            >
+              {t}
+            </span>
           ))}
         </div>
       )}
 
-      {/* Ingredients */}
-      <section className="mb-10">
-        <h2 className="text-xl font-semibold mb-4">🥘 Ingredients</h2>
-        <div className="bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-2xl p-6">
-          <IngredientList ingredients={recipe.ingredients} />
+      {/* Two-column: Ingredients + Instructions */}
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
+        {/* Ingredients */}
+        <div className="lg:col-span-1">
+          <div className="flex items-center gap-3 mb-5">
+            <span className="material-symbols-outlined text-primary">shopping_basket</span>
+            <h2 className="text-xl font-bold text-on-surface">Ingredients</h2>
+          </div>
+          <div className="bg-surface dark:bg-surface-dark border border-outline-variant/50 rounded-2xl p-5">
+            <IngredientList ingredients={recipe.ingredients} />
+          </div>
         </div>
-      </section>
 
-      {/* Instructions */}
-      <section className="mb-10">
-        <h2 className="text-xl font-semibold mb-4">📝 Instructions</h2>
-        <div className="bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-2xl p-6">
+        {/* Instructions */}
+        <div className="lg:col-span-2">
+          <div className="flex items-center gap-3 mb-5">
+            <span className="material-symbols-outlined text-primary">format_list_numbered</span>
+            <h2 className="text-xl font-bold text-on-surface">Instructions</h2>
+          </div>
+
           {recipe.instructions.length === 0 ? (
-            <p className="text-zinc-500 text-sm">No instructions parsed.</p>
+            <p className="text-on-surface-variant text-sm">No instructions parsed.</p>
           ) : (
-            <ol className="space-y-5">
+            <div className="space-y-6">
               {recipe.instructions.map((step, i) => (
-                <li key={i} className="flex gap-4 text-sm">
-                  <span className="text-rose-500 dark:text-rose-400 font-bold text-lg min-w-[1.5rem]">{i + 1}</span>
-                  <p className="text-zinc-700 dark:text-zinc-300 leading-relaxed">{step}</p>
-                </li>
+                <div key={i} className="flex gap-5">
+                  <span className="flex-none w-9 h-9 rounded-full bg-primary/10 text-primary flex items-center justify-center font-bold text-base shrink-0">
+                    {i + 1}
+                  </span>
+                  <p className="text-on-surface leading-relaxed pt-1.5">{step}</p>
+                </div>
               ))}
-            </ol>
+            </div>
+          )}
+
+          {/* Chef's Notes */}
+          {recipe.notes && (
+            <div className="mt-10 border-l-4 border-primary bg-primary-container/30 dark:bg-primary/10 rounded-r-xl p-5">
+              <div className="flex items-center gap-2 mb-3">
+                <span className="material-symbols-outlined text-primary">note</span>
+                <h3 className="font-bold text-primary">Chef&apos;s Notes</h3>
+              </div>
+              <p className="text-on-surface-variant leading-relaxed italic">{recipe.notes}</p>
+            </div>
+          )}
+
+          {/* Source link */}
+          {recipe.sourceUrl && /^https?:\/\//i.test(recipe.sourceUrl) && (
+            <div className="mt-6 flex items-center gap-2 text-sm">
+              <span className="material-symbols-outlined text-tertiary text-base">link</span>
+              <a
+                href={recipe.sourceUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-tertiary hover:underline font-medium transition-colors"
+              >
+                View Original Recipe
+              </a>
+            </div>
           )}
         </div>
-      </section>
-
-      {recipe.notes && (
-        <section className="mb-10">
-          <h2 className="text-xl font-semibold mb-4">📌 Notes</h2>
-          <div className="bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-2xl p-6 text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed">
-            {recipe.notes}
-          </div>
-        </section>
-      )}
-
-      <div className="flex items-center gap-4 pt-6 border-t border-zinc-200 dark:border-zinc-800">
-        {recipe.sourceUrl && (
-          <a href={recipe.sourceUrl} target="_blank" rel="noopener noreferrer" className="text-sm text-rose-500 hover:text-rose-600 dark:text-rose-400 dark:hover:text-rose-300 font-medium transition-colors">
-            View original →
-          </a>
-        )}
-        <EditButton id={recipe.id} />
-        <DeleteButton id={recipe.id} />
       </div>
     </div>
   );
